@@ -1,0 +1,116 @@
+header {
+    width: 80%;
+    height: 10%;
+    gap: 20px;
+}
+
+.flecha {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.flecha span {
+    border: 1px solid gray;
+    font-size: 20px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all ease 0.5s;
+    gap: 10px;
+}
+.flecha span i{
+    font-size: 25px;
+}
+.flecha span:hover{
+    background-color: black;
+    color: white;
+}
+.flecha span:hover i{
+    font-size: 27px;
+}
+header img {
+    width: 5%;
+    border-radius: 20px;
+}
+
+header span {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.layout {
+    width: 60%;
+    margin-top: 130px;
+    /* height: 80vh; */
+    display: flex;
+    /* background-color: yellowgreen; */
+}
+
+.layout .formulario {
+    width: 50%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+}
+
+.layout .formulario form {
+    width: 90%;
+    padding: 10%;
+    gap: 10px;
+    /* background-color: aqua; */
+    border: 1px solid gray;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+.layout .formulario form:hover {
+    border: 1px solid black;
+    box-shadow: 2px 2px 2px 2px black;
+}
+
+.layout .formulario form label {
+    font-size: 20px;
+}
+
+.layout .formulario form input {
+    height: 30px;
+
+}
+
+.layout .formulario form button {
+    width: 60%;
+    align-self: center;
+    margin-top: 20px;
+    height: 48px;
+    font-size: 18px;
+    outline: 0;
+    border: none;
+    padding: 0 24px;
+    background-color: #3483fa;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.layout .formulario form button:hover {
+    background-color: #166ef3;
+}
+
+.layout .container {
+    width: 50%;
+}
+
+.layout .container p {
+    font-size: 20px;
+    width: 90%;
+
+}
+.alert{
+    color: red;
+}

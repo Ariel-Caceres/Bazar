@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tektur:wght@400..900&display=swap');
+
+section {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+section .categorias {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 100px;
+    margin-bottom: 30px;
+}
+
+section .finder-top {
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.253);
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: white;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+section .finder-top .cant-resultados-filtros {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+    width: 70%;
+    justify-content: start;
+    /* background-color: #7DBBC3; */
+}
+
+section .finder-top .cant-resultados-filtros .palabra {
+    background-color: #7dbbc3b2;
+    padding: 5px;
+    border-radius: 10px;
+    color: black;
+
+}
+
+section .finder-top .cant-resultados-filtros .filtros-active {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    width: 60%;
+    /* overflow: scroll; */
+    /* height: 50px; */
+}
+
+
+section .finder-top .cant-resultados-filtros .cant-active {
+    width: 40%;
+
+}
+
+
+section .finder-top .cant-resultados-filtros .cant {
+    background-color: #7dbbc371;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+section .finder-top .cant-resultados-filtros .filtros {
+    background-color: #DAEDBD;
+    /* border: 1px solid white; */
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+section .layout {
+    width: 100%;
+    display: flex;
+
+}
+
+section .layout aside {
+    width: 20%;
+    position: sticky;
+    top: 150px;
+    height: 80vh;
+    left: 0;
+    display: flex;
+    justify-content: start;
+    overflow-y: auto;
+    z-index: 2;
+    gap: 20px;
+}
+
+section .layout aside .filtros {
+    width: 100%;
+}
+
+section .layout aside .filtros .marcas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+section .layout aside .filtros .marcas ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+section .layout aside .filtros .marcas ul li {
+    font-size: 20px;
+    gap: 5px;
+    color: rgba(0, 0, 0, 0.596);
+    display: flex;
+}
+
+section .layout aside .filtros .marcas ul li input {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+.volver {
+    width: 100%;
+    position: sticky;
+    top: 100px;
+    z-index: 3;
+}
+
+.volver .derecha {
+    font-size: 30px;
+    border: 1px solid;
+    border-radius: 40%;
+    padding: 15px;
+    cursor: pointer;
+    background-color: white;
+    display: flex;
+    justify-self: flex-end;
+}
+
+.volver .derecha:hover {
+    box-shadow: 2px 2px 2px 1px #7DBBC3;
+}
+
+section .layout aside .filtros .marcas .titulo {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+section .layout aside .filtros .marcas .limpiar {
+    font-size: 18px;
+    display: flex;
+    border-radius: 10px;
+    padding: 2px;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+    width: 30%;
+}
+
+section .layout aside .filtros .marcas .limpiar:hover {
+    background-color: black;
+    color: white;
+}
+
+
+section .finder-top .cant-resultados-filtros .titulo-icono {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    width: 100%;
+}
+
+section .finder-top .ordenar {
+    width: 15%;
+    cursor: pointer;
+}
+
+section .finder-top .ordenar select {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.603);
+    outline: 0;
+    border: none;
+}
+
+
+
+section .layout .productos {
+    width: 80%;
+    gap: 20px;
+    display: flex;
+    overflow-y: auto;
+    flex-wrap: wrap;
+    /* height: 100vh; */
+    justify-content: space-evenly;
+    z-index: 1;
+    background-color: white;
+}
+
+section .layout .productos .producto {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    /* height: 400px; */
+    gap: 10px;
+    padding: 10px;
+    position: relative;
+
+}
+
+section .layout .productos .producto:hover .imagen {
+    cursor: pointer;
+
+}
+
+section .layout .productos .producto:hover .descuento {
+    display: none;
+}
+
+section .layout .productos .producto .imagen {
+    width: 100%;
+    margin-top: 20px;
+    align-self: center;
+}
+
+section .layout .productos .producto .imagen img {
+    width: 100%;
+}
+
+section .layout .productos .producto .nombre {
+    font-size: 20px;
+    height: 8%;
+}
+
+section .layout .productos .producto .descuento {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14px;
+    background-color: #E5B181;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+section .layout .productos .producto .rating {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+}
+
+section .layout .productos .producto .precio {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+section .layout .productos .producto .stock {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.507);
+}
+
+section .layout .productos .producto .botones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+section .layout .productos .producto .botones .comprar {
+    padding: 10px;
+    font-family: "Tektur", sans-serif;
+    font-size: 20px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+}
+
+section .layout .productos .producto .botones .info {
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 20px;
+    font-family: "Tektur", sans-serif;
+    background-color: white;
+    color: black;
+}
+
+section .layout .productos .producto .botones .comprar:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+
+}
+
+section .layout .productos .producto .botones .info:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+.registrarse{
+    width:90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.registrarse button{
+    width: 30%;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: black;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.registrarse button:hover{
+    background-color: black;
+    border: 1px solid gray;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 1px #7DBBC3;
+}

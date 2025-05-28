@@ -1,0 +1,135 @@
+article {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+article .productos {
+    /* background-color: lightblue; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+article .productos .producto {
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.411);
+    width: 60%;
+    border-radius: 10px;
+    gap: 20px;
+}
+
+article .productos .producto button {
+    border: 1px solid gray;
+    height: 25px;
+    background-color: white;
+    width: 30%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 40px;
+    border-radius: 6px;
+}
+
+article .productos .producto .img {
+    width: 40%;
+}
+
+article .productos .producto .img img {
+    width: 150px;
+
+    object-fit: cover;
+}
+
+article .productos .producto .detalles {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 60%;
+}
+
+article .productos .producto .detalles .precio {
+    gap: 20px;
+    display: flex;
+}
+
+article .productos .producto .detalles .precio .original {
+    text-decoration: line-through;
+}
+
+article .productos .producto .detalles .precio .descuento {
+    color: red;
+}
+
+article .productos .producto .detalles .cantidad {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+article .productos .producto .detalles .cantidad select {
+    width: 40px;
+    height: 100%;
+
+
+}
+
+article .resumen {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+article .resumen .descuento {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
+    gap: 20px;
+}
+
+article .resumen button {
+    height: 45px;
+    font-size: 18px;
+    background-color: black;
+    position: relative;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+article .resumen button:hover {
+    background-color: white;
+    color: black;
+}
+
+article .resumen button::before {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    position: absolute;
+    content: "";
+    bottom: -5px;
+    cursor: pointer;
+    height: 100%;
+    left: 3px;
+    width: 100%;
+}
+article .resumen button::before {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    position: absolute;
+    cursor: pointer;
+    content: "";
+ } 
+article .resumen button::before:hover{
+    color: red;
+}
+h2{
+    margin-bottom: 50px;
+}

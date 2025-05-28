@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tektur:wght@400..900&display=swap');
+
+#root {
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.container .imagen {
+    width: 30%;
+}
+
+.container .imagen img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+.container form{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: #7DBBC3; */
+}
+
+.container form .input {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    border-radius: 10px;
+    transition: all 0.5s;
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+
+
+.container form .input input {
+    background-color: transparent;
+    border-radius: 10px;
+    margin-left: 5px;
+    outline: none;
+    border: none;
+    height: 40px;
+    width: 100%;
+}
+
+.container form .input .lupa {
+    margin-right: 5px;
+    color: rgba(0, 0, 0, 0.404);
+    font-size: 25px;
+}
+
+
+.container form .boton-submit {
+    font-family: "Tektur", sans-serif;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: #7DBBC3;
+    padding: 5px;
+    padding-left: 15px;
+    width: 25%;
+    padding-right: 15px;
+    font-size: 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.container form .boton-submit:hover {
+    box-shadow: none;
+    transition: all 0.5s;
+    border: 1px solid black;
+}
