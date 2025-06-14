@@ -40,7 +40,6 @@ section .finder-top .cant-resultados-filtros {
     flex-direction: row;
     width: 70%;
     justify-content: start;
-    /* background-color: #7DBBC3; */
 }
 
 section .finder-top .cant-resultados-filtros .palabra {
@@ -55,9 +54,7 @@ section .finder-top .cant-resultados-filtros .filtros-active {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    /* width: 60%; */
-    /* overflow: scroll; */
-    /* height: 50px; */
+
 }
 
 
@@ -75,7 +72,6 @@ section .finder-top .cant-resultados-filtros .cant {
 
 section .finder-top .cant-resultados-filtros .filtros {
     background-color: #DAEDBD;
-    /* border: 1px solid white; */
     border-radius: 10px;
     padding-left: 5px;
     padding-right: 5px;
@@ -195,7 +191,6 @@ section .finder-top .ordenar select {
     background-color: transparent;
     color: rgba(0, 0, 0, 0.603);
     outline: 0;
-    /* border: none; */
     cursor: pointer;
     border-radius: 1px solid black;
     padding: 5px;
@@ -209,7 +204,6 @@ section .layout .productos {
     display: flex;
     overflow-y: auto;
     flex-wrap: wrap;
-    /* height: 100vh; */
     justify-content: space-evenly;
     z-index: 1;
     background-color: white;
@@ -219,7 +213,6 @@ section .layout .productos .producto {
     width: 25%;
     display: flex;
     flex-direction: column;
-    /* height: 400px; */
     gap: 10px;
     padding: 10px;
     position: relative;
@@ -313,13 +306,15 @@ section .layout .productos .producto .botones .info:hover {
     color: white;
     cursor: pointer;
 }
-.registrarse{
-    width:90%;
+
+.registrarse {
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.registrarse button{
+
+.registrarse button {
     width: 30%;
     background-color: white;
     border: 1px solid gray;
@@ -331,11 +326,125 @@ section .layout .productos .producto .botones .info:hover {
     border-radius: 10px;
     cursor: pointer;
 }
-.registrarse button:hover{
+
+.registrarse button:hover {
     background-color: black;
     border: 1px solid gray;
     padding: 10px;
     color: white;
     border-radius: 10px;
     box-shadow: 2px 2px 2px 1px #7DBBC3;
+}
+
+
+
+
+@media (max-width: 1024px) {
+    section {
+        width: 95%;
+    }
+
+    section .categorias {
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: center;
+    }
+
+    section .categorias .categoria {
+        width: 40%;
+        border: 1px solid rgba(128, 128, 128, 0.384);
+    }
+
+    section .layout {
+        flex-direction: column;
+    }
+
+    section .layout aside {
+        width: 100%;
+        display: none;
+        height: auto;
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    section .layout .productos {
+        width: 100%;
+        justify-content: center;
+    }
+
+    section .layout .productos .producto {
+        width: 45%;
+    }
+
+    section .finder-top .ordenar {
+        width: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    section .finder-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    section .finder-top .cant-resultados-filtros {
+        flex-direction: column;
+        display: none;
+        width: 100%;
+    }
+
+    section .finder-top .ordenar {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    section .layout .productos .producto {
+        width: 90%;
+    }
+
+    .registrarse button {
+        width: 100%;
+    }
+
+    section .layout aside .filtros .marcas .limpiar {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    section .layout .productos .producto {
+        width: 100%;
+    }
+
+    section .finder-top .cant-resultados-filtros .titulo-icono {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    section .categorias{
+        gap: 5px;
+    }
+    section .categorias .categoria {
+        width: 100%;
+        border: 1px solid rgba(128, 128, 128, 0.384);
+    }
+   
+    section .layout aside .filtros .marcas ul li {
+        font-size: 16px;
+    }
+
+    section .layout .productos .producto .nombre,
+    section .layout .productos .producto .precio,
+    section .layout .productos .producto .stock {
+        font-size: 16px;
+    }
+
+    section .layout .productos .producto .botones .comprar,
+    section .layout .productos .producto .botones .info {
+        font-size: 16px;
+        padding: 8px;
+    }
 }
