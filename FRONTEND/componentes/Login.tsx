@@ -1,7 +1,7 @@
 import "../src/estilos/login.css"
 import img from "../src/assets/img.jpg"
 import { useNavigate, useLocation } from "react-router-dom"
-import { useApp } from "./useApp"
+import { useApp } from "../context/useApp"
 
 import { useState } from "react"
 export const Login = () => {
@@ -11,33 +11,33 @@ export const Login = () => {
     const urlAnterior = location.state?.urlAnterior || "/items"
     const carritomsj = location.state?.carritomsj || null
     const [usuario, setUsuario] = useState<string>("")
+
     const [contraseña, setContraseña] = useState<string>("")
     const [usuarioNoExiste, setUsuarioNoExiste] = useState<boolean>(false)
 
 
     const handleSumbmit = (e: React.FormEvent) => {
         e.preventDefault()
-        login(usuario)
-        console.log(usuario, contraseña)
     }
     const handleUsuarioControlado = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(usuario == ""){
-            setUsuarioNoExiste(false)
-        }
+
         setUsuario(e.target.value)
     }
     const handleContraseñaControlada = (e: React.ChangeEvent<HTMLInputElement>) => {
         setContraseña(e.target.value)
     }
-    const userCheck = async (nombre: string) => {
-        const res = await fetch(`http://localhost:3000/usuarios/${nombre}`)
+    const userCheck = async (nombre: string, contraseña: string) => {
+        const res = await fetch(`http://localhost:3000/usuarios/${nombre}/${contraseña}`)
         if (res.status === 404) {
             const data = await res.json()
             alert(data.message)
             setUsuarioNoExiste(true)
 
         } else if (res.ok) {
+            login(usuario)
+
             alert("Inicio de secion exitoso lets fucking go")
+            setUsuario(usuario)
             navigate("/carrito")
         }
     }
@@ -67,12 +67,12 @@ export const Login = () => {
                     <form action="" onSubmit={handleSumbmit}>
                         <label htmlFor="usuario">Nombre de usuario:</label>
                         {usuarioNoExiste &&
-                            <span className="alert">⬇ El usuario no existe ⬇</span>
+                            <span className="alert">⬇ Datos erroneos ⬇</span>
                         }
                         <input type="text" name="usuario" id="usuario" onChange={handleUsuarioControlado} value={usuario} required />
                         <label htmlFor="contraseña">Contraseña:</label>
                         <input type="password" name="contraseña" id="contraseña" onChange={handleContraseñaControlada} value={contraseña} required />
-                        <button onClick={() => (userCheck(usuario))
+                        <button onClick={() => (userCheck(usuario, contraseña))
                         }>Enviar</button>
                     </form>
                 </div>

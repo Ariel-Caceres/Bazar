@@ -36,7 +36,8 @@ export const Resultados = () => {
   const [categorias, setCategorias] = useState<categorias[]>([])
   const [productos, setProductos] = useState<Product[]>([]);
   const [marcasSeleccionadas, setMarcasSeleccionadas] = useState<string[]>([]);
-
+  const [loading, setLoadign] = useState(true)
+  const [orden, setOrden] = useState("")
 
   const getdata = async () => {
     try {
@@ -47,8 +48,10 @@ export const Resultados = () => {
       console.log("Error al traer las categorias", error)
     }
   }
+
   const fetchPorductos = async () => {
     try {
+      setLoadign(true)
       let url = ""
       if (buscador !== null && buscador.trim() != "") {
         url = `http://localhost:3000/api/${buscador}`
@@ -76,9 +79,13 @@ export const Resultados = () => {
     } catch (error) {
       console.error("Error al traer los productos", error)
     }
+    finally {
+      setLoadign(false)
+    }
 
 
   }
+
   useEffect(() => {
     fetchPorductos()
   }, [buscador, categoria]);
@@ -97,6 +104,12 @@ export const Resultados = () => {
       checked ? [...prev, marca] : prev.filter(m => m != marca)
     )
   }
+  const productosOrdenados = [...productosFiltrados].sort((a, b) =>
+    orden == "menor" ? a.price - b.price :
+      orden == "mayor" ? b.price - a.price :
+      orden == "rating" ? b.rating - a.rating:
+        0
+  )
 
   return (
     <>
@@ -129,10 +142,11 @@ export const Resultados = () => {
 
           <div className="ordenar">
             <span>Ordenar</span>
-            <select name="select" id="select">
+            <select name="select" id="select" onChange={(e) => setOrden(e.target.value)}>
               <option value="">Recomendados</option>
-              <option value="">Mejor Valorados</option>
-              <option value="">Precio</option>
+              <option value="menor">Precio menor ⬇</option>
+              <option value="mayor">Precio mayor ⬆</option>
+              <option value="rating">Rating ⭐</option>
             </select>
           </div>
         </div>
@@ -160,12 +174,16 @@ export const Resultados = () => {
             </div>
           </aside>
           <div className="productos">
-            {productosFiltrados.length != 0 ?
-              productosFiltrados.map((p) => (
-                <ProductoCard key={p.id} producto={p} />
-              )) :
+            {loading ? (
+              <span>⏳Cargando productos...</span>
+            ) : productosFiltrados.length != 0 ? (
 
+              productosOrdenados.map((p) => (
+                <ProductoCard key={p.id} producto={p} />
+              ))
+            ) : (
               <span>No se encontraron productos 👎</span>
+            )
             }
           </div>
         </div >

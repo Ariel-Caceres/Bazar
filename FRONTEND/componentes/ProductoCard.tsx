@@ -1,24 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import type { Product } from "./Resultados";
 import {  useState } from "react";
-import { useApp } from "./useApp";
+import { useApp } from "../context/useApp";
 export const ProductoCard = ({ producto }: { producto: Product }) => {
   const [hover, setHover] = useState(false);
   const navigate = useNavigate();
   const {usuario} = useApp()
   const {id} = useApp()
       const añadirAlCarrito = () => {
-        fetch(`http://localhost:3000/carrito/add`, {
+        if(usuario){
+          fetch(`http://localhost:3000/carrito/add`, {
             method: "POST",
             headers:{
-                "Content-Type":"application/json"
+              "Content-Type":"application/json"
             },
             body: JSON.stringify({
               id:`${id}`,
               usuario: `${usuario}`,
               producto:producto,
             })
-        })
+          })
+        }
+        else{
+          navigate("/login", {state:{carritomsj: true}})
+        }
     }
   return (
     

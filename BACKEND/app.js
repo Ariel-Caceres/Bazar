@@ -84,9 +84,8 @@ app.get("/cart/:usuario", (req, res) => {
     if (productosEncontrados) {
       let carritoEncontrado = productosEncontrados.productos
       res.json(carritoEncontrado)
-      console.log(carritoEncontrado.length)
     }
-  }else{
+  } else {
     res.json("no se encontreraron productos")
   }
 })
@@ -106,7 +105,6 @@ app.post("/add", (req, res) => {
 
 })
 
-
 let categoriasFiltradas = []
 
 const fetchCategoriasTecnologia = async () => {
@@ -122,14 +120,19 @@ const fetchCategoriasTecnologia = async () => {
 }
 fetchCategoriasTecnologia()
 
-app.delete("/delete/:id", (req, res) => {
-  let productosEnCarrito = leerJson("products.json")
-  let productoABorrar = Number(req.params.id)
-  let productoEncontrado = productosEnCarrito.filter(p => p.id != productoABorrar)
-  crearJson("products.json", productoEncontrado)
-  res.json({ message: "Producto eliminado con éxito", productoABorrar });
-
-})
+app.delete("/delete/:usuario/:id", (req, res) => {
+  let usuario = req.params.usuario;
+  let productosEnCarrito = leerJson("products.json");
+  let carritoUsuario = productosEnCarrito.find(p => p.usuario === usuario);
+  if (!carritoUsuario) {
+    return res.status(404).json("No se encontró el usuario");
+  }
+  let productoABorrar = Number(req.params.id);
+  console.log("ID a borrar:", productoABorrar);
+  carritoUsuario.productos = carritoUsuario.productos.filter(p => p.id !== productoABorrar);
+  crearJson("products.json", productosEnCarrito);
+  res.json({ message: "Producto eliminado con éxito" });
+});
 
 app.post("/usuario/add", (req, res) => {
   let usuarios = leerJson("users.json")
@@ -147,13 +150,14 @@ app.post("/usuario/add", (req, res) => {
   }
 })
 
-app.get("/usuarios/:nombre", (req, res) => {
+app.get("/usuarios/:nombre/:contraseña", (req, res) => {
   let usuarios = leerJson("users.json")
+  let contraseña = req.params.contraseña
   let usuarioNombre = req.params.nombre
-  if (usuarios.find(u => u.usuario == usuarioNombre)) {
+  if (usuarios.find(u => u.usuario == usuarioNombre && u.contraseña == contraseña)) {
     res.json({ message: "Enicio de secion exitoso" })
   } else {
-    res.status(404).json({ message: "El usuario no existe carajo" })
+    res.status(404).json({ message: "Usuario o contraseña incorrectos " })
   }
 
 })
@@ -161,19 +165,17 @@ app.get("/usuarios/:nombre", (req, res) => {
 app.post("/carrito/add", (req, res) => {
   let productosEnCarrito = leerJson("products.json")
   let { id, usuario, producto } = req.body
-  let usuarioExiste = productosEnCarrito.find(uid => uid.id === id)
+  let usuarioExiste = productosEnCarrito.find(u => u.usuario === usuario)
   if (usuarioExiste) {
     usuarioExiste.productos.push(producto)
   } else {
     productosEnCarrito.push({
       usuario,
-      id,
       productos: [producto]
     })
   }
   crearJson("products.json", productosEnCarrito)
 })
-
 
 app.get("/categorias", (req, res) => {
   res.json(categoriasFiltradas)
@@ -181,6 +183,7 @@ app.get("/categorias", (req, res) => {
     return res.status(404).json({ error: `Categoria no encontrada` })
   }
 })
+
 app.listen(3000, () => {
   console.log('Servidor corriendo en http://localhost:3000');
 
