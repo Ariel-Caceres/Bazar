@@ -1,26 +1,12 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../src/estilos/resultados.css";
 import { ProductoCard } from "./ProductoCard";
-import { Header } from "../componentes/Header.tsx"
+import { Header } from "../componentes/Header.tsx";
 import { CategoriasCard } from "./CategoriasCard";
-import { useLocation } from "react-router-dom";
+import { useProductosContext } from "../context/ProductosContext";
+import { Footer } from "./Footer.tsx";
 
-export interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  tags: string;
-  brand: string;
-  category: string;
-
-  thumbnail: string;
-  images: string[];
-}
 export interface categorias {
   name: string;
   url: string;
@@ -28,88 +14,57 @@ export interface categorias {
 
 export const Resultados = () => {
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const categoria: string | null = searchParams.get("categoria")
+  const categoria: string | null = searchParams.get("categoria");
   const buscador: string | null = searchParams.get("buscador");
   const ultimoId = location.state?.ultimoId;
-  const [categorias, setCategorias] = useState<categorias[]>([])
-  const [productos, setProductos] = useState<Product[]>([]);
-  const [marcasSeleccionadas, setMarcasSeleccionadas] = useState<string[]>([]);
-  const [loading, setLoadign] = useState(true)
-  const [orden, setOrden] = useState("")
+  const [categorias, setCategorias] = useState<categorias[]>([]);
 
+  const {
+    productos,
+    loading,
+    orden,
+    setOrden,
+    marcasSeleccionadas,
+    setMarcasSeleccionadas,
+    fetchProductos,
+  } = useProductosContext();
+  
   const getdata = async () => {
     try {
-      const res = await fetch("http://localhost:3000/categorias")
-      const data = await res.json()
-      setCategorias(data)
+      const res = await fetch("http://localhost:3000/categorias");
+      const data = await res.json();
+      setCategorias(data);
     } catch (error) {
-      console.log("Error al traer las categorias", error)
+      console.log("Error al traer las categorias", error);
     }
-  }
-
-  const fetchPorductos = async () => {
-    try {
-      setLoadign(true)
-      let url = ""
-      if (buscador !== null && buscador.trim() != "") {
-        url = `http://localhost:3000/api/${buscador}`
-      } else if (categoria !== null) {
-        url = `http://localhost:3000/productos/${categoria}`
-      } else {
-        url = "http://localhost:3000/api/productos"
-      }
-      const res = await fetch(url)
-      if (!res.ok) {
-        const errorData = await res.json()
-        console.warn("Exploto el server:", errorData.error)
-        setProductos([])
-        return
-      }
-      const data = await res.json()
-
-      if (!Array.isArray(data)) {
-        console.log("No se encontraron productos")
-        setProductos([])
-        return
-      }
-      setProductos(data)
-
-    } catch (error) {
-      console.error("Error al traer los productos", error)
-    }
-    finally {
-      setLoadign(false)
-    }
-
-
-  }
-
+  };
+  
   useEffect(() => {
-    fetchPorductos()
+    fetchProductos(categoria ?? undefined, buscador ?? undefined);
   }, [buscador, categoria]);
 
   useEffect(() => {
-    getdata()
-  }, [])
+    getdata();
+  }, []);
 
   const productosFiltrados = marcasSeleccionadas.length === 0
     ? productos
-    : productos.filter(p => marcasSeleccionadas.includes(p.brand))
-
+    : productos.filter(p => marcasSeleccionadas.includes(p.brand));
 
   const handleChange = (marca: string, checked: boolean) => {
     setMarcasSeleccionadas(prev =>
       checked ? [...prev, marca] : prev.filter(m => m != marca)
-    )
-  }
+    );
+  };
+
   const productosOrdenados = [...productosFiltrados].sort((a, b) =>
     orden == "menor" ? a.price - b.price :
-      orden == "mayor" ? b.price - a.price :
-      orden == "rating" ? b.rating - a.rating:
-        0
-  )
+    orden == "mayor" ? b.price - a.price :
+    orden == "rating" ? b.rating - a.rating :
+    0
+  );
 
   return (
     <>
@@ -118,12 +73,11 @@ export const Resultados = () => {
         {ultimoId &&
           <div className="volver" onClick={() => (ultimoId && navigate(`/producto/${ultimoId}`, {
             state: { volverA: location.pathname + location.search }
-
           }))}>
             <span><i className="fa-solid fa-arrow-right derecha"></i></span>
           </div>
         }
-        <div className="categorias">
+        <div className="categorias" onClick={()=>(setMarcasSeleccionadas([]))}>
           {categorias.map(c => (<CategoriasCard categoria={c} key={c.name} />))}
         </div>
         <div className="finder-top">
@@ -156,11 +110,10 @@ export const Resultados = () => {
             <div className="filtros">
               <div className="marcas">
                 <span className="titulo">Marcas:</span>
-                {marcasSeleccionadas.length != 0 ? (
+                {marcasSeleccionadas.length !== 0 ? (
                   <span className="limpiar" onClick={() => setMarcasSeleccionadas([])}>Limpiar <i className="fa-solid fa-filter-circle-xmark" ></i></span>
-                ) :
-                  <span>Ninguna</span>
-                }
+                ) : ""
+              }
 
                 <ul>
                   {productos && Array.from(new Set(productos.map(p => p.brand))).map((m) => (
@@ -177,18 +130,16 @@ export const Resultados = () => {
             {loading ? (
               <span>⏳Cargando productos...</span>
             ) : productosFiltrados.length != 0 ? (
-
               productosOrdenados.map((p) => (
                 <ProductoCard key={p.id} producto={p} />
               ))
             ) : (
               <span>No se encontraron productos 👎</span>
-            )
-            }
+            )}
           </div>
         </div >
       </section >
+      <Footer/>
     </>
-
   );
 };

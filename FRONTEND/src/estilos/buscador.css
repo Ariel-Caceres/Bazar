@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tektur:wght@400..900&display=swap');
 
-#root {
-    width: 100%;
-}
+
 
 .container {
     width: 100%;
@@ -21,7 +19,8 @@
     border-radius: 10px;
     border: 1px solid white;
 }
-.container form{
+
+.container form {
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -81,4 +80,62 @@
     box-shadow: none;
     transition: all 0.5s;
     border: 1px solid black;
+}
+
+
+@media (max-width: 1300px),
+(min-widht:1200px) {
+    .container .imagen {
+        width: 60%;
+    }
+
+    .container form {
+        width: 70%;
+    }
+
+    .container form .boton-submit {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .container .imagen {
+        width: 60%;
+    }
+
+    .container form {
+        width: 70%;
+    }
+
+    .container form .boton-submit {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container .imagen {
+        width: 60%;
+    }
+
+    .container form {
+        width: 70%;
+    }
+
+    .container form .boton-submit {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container .imagen {
+        width: 60%;
+    }
+
+    .container form {
+        width: 70%;
+    }
+
+    .container form .boton-submit {
+        width: 100%;
+    }
 }

@@ -2,25 +2,24 @@ import "../src/estilos/login.css"
 import img from "../src/assets/img.jpg"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useApp } from "../context/useApp"
-
 import { useState } from "react"
+import { Footer } from "./Footer"
+
 export const Login = () => {
     const navigate = useNavigate()
     const location = useLocation();
-    const { login } = useApp()
-    const urlAnterior = location.state?.urlAnterior || "/items"
+    const { login, loading } = useApp()
+    const urlAnterior = location.state?.urlAnterior || "/"
     const carritomsj = location.state?.carritomsj || null
     const [usuario, setUsuario] = useState<string>("")
 
     const [contraseña, setContraseña] = useState<string>("")
     const [usuarioNoExiste, setUsuarioNoExiste] = useState<boolean>(false)
 
-
     const handleSumbmit = (e: React.FormEvent) => {
         e.preventDefault()
     }
     const handleUsuarioControlado = (e: React.ChangeEvent<HTMLInputElement>) => {
-
         setUsuario(e.target.value)
     }
     const handleContraseñaControlada = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,13 +33,18 @@ export const Login = () => {
             setUsuarioNoExiste(true)
 
         } else if (res.ok) {
-            login(usuario)
-
-            alert("Inicio de secion exitoso lets fucking go")
-            setUsuario(usuario)
-            navigate("/carrito")
+            login(usuario, contraseña)
+            alert("Inicio de secion exitoso ")
+            // if (usuario.toLowerCase() === "admin" && contraseña === "1234") {
+            if (!loading) {
+                navigate("/admin");
+            } else {
+                navigate(urlAnterior);
+            }
         }
     }
+
+
 
     return (
         <>
@@ -72,11 +76,13 @@ export const Login = () => {
                         <input type="text" name="usuario" id="usuario" onChange={handleUsuarioControlado} value={usuario} required />
                         <label htmlFor="contraseña">Contraseña:</label>
                         <input type="password" name="contraseña" id="contraseña" onChange={handleContraseñaControlada} value={contraseña} required />
-                        <button onClick={() => (userCheck(usuario, contraseña))
+                        <button onClick={() => (userCheck(usuario, contraseña), localStorage.setItem)
                         }>Enviar</button>
                     </form>
                 </div>
             </div >
+            <Footer />
+
         </>
 
     )

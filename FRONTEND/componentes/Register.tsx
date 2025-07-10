@@ -4,13 +4,13 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { useApp } from "../context/useApp"
 import { useEffect, useState } from "react"
 import { v4 as uuidv4 } from "uuid"
-
+import { Footer } from "./Footer"
 export const Register = () => {
 
     const navigate = useNavigate()
     const location = useLocation();
-    const { login,  setId} = useApp()
-    const urlAnterior = location.state?.urlAnterior || "/items"
+    const { login, setId } = useApp()
+    const urlAnterior = location.state?.urlAnterior || "/"
     const [usuario, setUsuario] = useState<string>("")
     const [contraseña, setContraseña] = useState<string>("")
     const [confirmarContraseña, setConfirmarContraseña] = useState<string>("")
@@ -27,11 +27,9 @@ export const Register = () => {
     }
     const handleChangePass = (e: React.ChangeEvent<HTMLInputElement>) => {
         setContraseña(e.target.value)
-        console.log(usuario)
     }
     const handleChangePassConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
         setConfirmarContraseña(e.target.value)
-        console.log(usuario)
     }
 
     useEffect(() => {
@@ -40,15 +38,15 @@ export const Register = () => {
         }
     }, [confirmarContraseña, contraseña])
 
-    useEffect(()=>{
-        if(!idGenerado){
+    useEffect(() => {
+        if (!idGenerado) {
             const nuevoId = uuidv4()
-            setIdGenerado(nuevoId) 
+            setIdGenerado(nuevoId)
         }
-    },[idGenerado])
+    }, [idGenerado])
 
     const userAdd = async () => {
-        if(!idGenerado)return;
+        if (!idGenerado) return;
         const res = await fetch(`http://localhost:3000/usuario/add/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -61,7 +59,7 @@ export const Register = () => {
         })
         if (res.status === 409) {
             const data = await res.json()
-            alert(data.message )
+            alert(data.message)
         } else if (res.ok) {
             alert("Registro exitoso")
             setId(idGenerado)
@@ -102,7 +100,8 @@ export const Register = () => {
                     </form>
                 </div>
             </div >
-        </>
+            <Footer />
 
+        </>
     )
 }

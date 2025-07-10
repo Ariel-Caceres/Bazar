@@ -2,7 +2,6 @@ header {
     display: flex;
     flex-direction: row;
     width: 80%;
-    /* background-color: aqua; */
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.199);
     margin-bottom: 10px;
@@ -35,7 +34,6 @@ header .titulo img {
 
 .nav-var ul {
     justify-content: space-evenly;
-    /* background-color: red; */
     list-style: none;
     display: flex;
     align-items: center;
@@ -46,13 +44,25 @@ header .titulo img {
     cursor: pointer;
     font-size: 25px;
     transition: all ease 0.5s;
+    padding: 5px;
+    transition: all ease 0.5s;
 }
 
-.nav-var ul .item:hover {
-    background-color: black;
-    color: white;
-    border-radius: 10px;
+.itemElegido {
+    color: #E5B181;
     padding: 5px;
+    border-radius: 10px;
+
+    cursor: pointer;
+    font-size: 25px;
+    transition: all ease 0.5s;
+    border: 1px solid #7DBBC3;
+}
+
+
+.nav-var ul .item:hover {
+    color: #7DBBC3;
+ 
 }
 
 .user {
@@ -86,13 +96,10 @@ header .titulo img {
 
 
 
-
-
 @media (max-width: 1024px) {
     header {
         width: 95%;
         padding: 10px 0;
-        /* flex-wrap: wrap; */
         justify-content: space-between;
     }
 
@@ -119,6 +126,9 @@ header .titulo img {
     .nav-var ul .item {
         font-size: 20px;
     }
+    .itemElegido {
+        font-size: 20px;
+    }
 
     .user {
         font-size: 20px;
@@ -126,12 +136,10 @@ header .titulo img {
     }
 }
 
-
 @media (max-width: 1024px) {
     header {
         width: 100%;
         padding: 10px 0;
-        /* flex-wrap: wrap; */
         justify-content: space-between;
     }
 
@@ -164,6 +172,9 @@ header .titulo img {
         font-size: 20px;
         padding: 6px 12px;
     }
+    .itemElegido {
+        font-size: 20px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -171,7 +182,6 @@ header .titulo img {
         width: 100%;
         justify-content: space-between;
         padding: 10px;
-        /* flex-wrap: wrap; */
     }
 
     header .titulo {
@@ -192,13 +202,15 @@ header .titulo img {
         width: 100%;
 
         gap: 10px;
-        /* flex-wrap: wrap; */
     }
 
     .nav-var ul .item {
         font-size: 20px;
     }
 
+    .itemElegido {
+        font-size: 20px;
+    }
     .user {
         font-size: 16px;
         padding: 5px 10px;
@@ -228,23 +240,28 @@ header .titulo img {
         width: 100%;
         display: flex;
         justify-content: space-between;
-        
+
     }
 
     .nav-var ul {
         gap: 6px;
-        width: 100%;
+        width: 90%;
         display: flex;
         justify-content: space-between;
-
+        padding: 0;
     }
 
     .nav-var ul .item {
-        font-size: 20px;
+        font-size: 30px;
     }
 
+
     .user {
-        font-size: 14px;
+        font-size: 24px;
         padding: 4px 8px;
+    }
+
+    .itemElegido {
+        font-size: 30px;
     }
 }

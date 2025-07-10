@@ -33,11 +33,11 @@ const fetchProductosTecnologia = async () => {
 };
 fetchProductosTecnologia()
 
-app.get('/api/productos', async (req, res) => {
-  if (!productosTecnologia || productosTecnologia.length == 0) {
-    return res.status(404).json({ error: `Error al obtener los productos, productos no encontrados` })
+app.get('/api/productos', (req, res) => {
+  if (!productosTecnologia) {
+    return res.status(500).json({ error: 'Error interno' });
   }
-  res.json(productosTecnologia)
+  res.status(200).json(productosTecnologia);
 });
 
 app.get("/api/:search", async (req, res) => {
@@ -128,32 +128,41 @@ app.delete("/delete/:usuario/:id", (req, res) => {
     return res.status(404).json("No se encontró el usuario");
   }
   let productoABorrar = Number(req.params.id);
-  console.log("ID a borrar:", productoABorrar);
   carritoUsuario.productos = carritoUsuario.productos.filter(p => p.id !== productoABorrar);
   crearJson("products.json", productosEnCarrito);
   res.json({ message: "Producto eliminado con éxito" });
 });
 
 app.post("/usuario/add", (req, res) => {
-  let usuarios = leerJson("users.json")
-  let { usuario, contraseña } = req.body
-  if (usuario && contraseña) {
-    if (usuarios.find(u => u.usuario === usuario)) {
-      return res.status(409).json({ message: "Este usuario ya existe" })
-    } else {
-      usuarios.push(req.body)
-      crearJson("users.json", usuarios)
-    }
-    return res.status(201).json({ message: "Usuario registrado correctamente" })
-  } else {
-    return res.status(400).json({ message: "faltan datos, todo mal" })
+  let usuarios = leerJson("users.json");
+  let { usuario, contraseña } = req.body;
+
+  if (!usuario || !contraseña) {
+    return res.status(400).json({ message: "Faltan datos" });
   }
-})
+
+  if (usuario === "admin" && contraseña === "1234") {
+    return res.status(403).json({ message: "No se puede registrar como admin" });
+  }
+
+  if (usuarios.find(u => u.usuario === usuario)) {
+    return res.status(409).json({ message: "Este usuario ya existe" });
+  }
+
+  usuarios.push({ usuario, contraseña });
+  crearJson("users.json", usuarios);
+
+  return res.status(201).json({ message: "Usuario registrado correctamente" });
+});
+
 
 app.get("/usuarios/:nombre/:contraseña", (req, res) => {
   let usuarios = leerJson("users.json")
   let contraseña = req.params.contraseña
   let usuarioNombre = req.params.nombre
+  if (usuarioNombre == "admin" && contraseña == "1234") {
+    return res.json({ message: "Bienvenido admin" })
+  }
   if (usuarios.find(u => u.usuario == usuarioNombre && u.contraseña == contraseña)) {
     res.json({ message: "Enicio de secion exitoso" })
   } else {
@@ -163,26 +172,83 @@ app.get("/usuarios/:nombre/:contraseña", (req, res) => {
 })
 
 app.post("/carrito/add", (req, res) => {
-  let productosEnCarrito = leerJson("products.json")
-  let { id, usuario, producto } = req.body
-  let usuarioExiste = productosEnCarrito.find(u => u.usuario === usuario)
+  let productosEnCarrito = leerJson("products.json");
+  let { usuario, producto } = req.body;
+
+  let usuarioExiste = productosEnCarrito.find(u => u.usuario === usuario);
+
   if (usuarioExiste) {
-    usuarioExiste.productos.push(producto)
+    let productoExistente = usuarioExiste.productos.find(p => p.id === producto.id);
+
+    if (productoExistente) {
+      productoExistente.cantidad = (productoExistente.cantidad || 1) + 1;
+    } else {
+      usuarioExiste.productos.push({ ...producto, cantidad: 1 });
+    }
   } else {
-    productosEnCarrito.push({
-      usuario,
-      productos: [producto]
-    })
+    if (usuario !== "admin") {
+      productosEnCarrito.push({
+        usuario,
+        productos: [{ ...producto, cantidad: 1 }]
+      });
+    }
   }
-  crearJson("products.json", productosEnCarrito)
-})
+
+  crearJson("products.json", productosEnCarrito);
+  res.status(200).json({ message: "Producto agregado al carrito con éxito" });
+});
+
 
 app.get("/categorias", (req, res) => {
-  res.json(categoriasFiltradas)
   if (!categoriasFiltradas || categoriasFiltradas.length == 0) {
-    return res.status(404).json({ error: `Categoria no encontrada` })
+    return res.status(404).json({ error: `Categoria no encontrada` });
+  }
+  res.json(categoriasFiltradas);
+});
+
+
+app.put("/buy/:usuario", (req, res) => {
+  let carrito = leerJson("products.json")
+  let usuarioCarrito = req.params.usuario
+  let usuarioEncontrado = carrito.find(c => c.usuario == usuarioCarrito)
+  if (!usuarioEncontrado) {
+    res.status(404).json({ message: "No se encontro el usuario" })
+  }
+  usuarioEncontrado.productos = []
+  crearJson("products.json", carrito)
+  res.json("carrito vaciado")
+
+})
+
+app.get("/admin/products", async (req, res) => {
+  try {
+    let response = await fetch("https://6812b0f7129f6313e20f45cd.mockapi.io/products")
+    let data = await response.json()
+    res.json(data)
+  } catch (error) {
+    res.status(404).json({ message: "Error al traer los productos", error })
   }
 })
+
+app.put("/cart/cantidad/:usuario/:id", (req,res)=>{
+  let producto =  req.params.id
+  let usuario = req.params.usuario
+  let nuevaCantidad =  req.body.cantidad
+  let carrito = leerJson("products.json")
+  let carritoUsuarioEncontrado = carrito.find(u=> u.usuario == usuario)
+  if(!carritoUsuarioEncontrado){
+    return res.status(404).json("Usuario no encontrado")
+  }
+  let productoEncontrado = carritoUsuarioEncontrado.productos.find(p=>p.id == producto)
+  if(!productoEncontrado){
+    return res.status(404).json("Producto no encontrado")
+  }
+  productoEncontrado.cantidad = nuevaCantidad
+  crearJson("products.json",carrito)
+
+  res.json({message:"Cantidad editada con exito"})
+})
+
 
 app.listen(3000, () => {
   console.log('Servidor corriendo en http://localhost:3000');

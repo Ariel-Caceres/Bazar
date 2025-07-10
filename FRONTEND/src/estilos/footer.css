@@ -1,0 +1,23 @@
+.footer {
+  color: black;
+  padding: 20px 0;
+  text-align: center;
+  display: flex;
+  font-size: 14px;
+  /* position: absolute;
+  bottom: 0; */
+  margin-top: 40px;
+}
+
+.footer a {
+  color: #2EC4B6;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-links {
+  margin-top: 5px;
+}

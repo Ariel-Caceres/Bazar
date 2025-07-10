@@ -157,8 +157,10 @@
 
 .producto-detalles .info .botones {
     margin-top: 20px;
+    margin-bottom: 20px;
     gap: 20px;
     display: flex;
+
 }
 
 .producto-detalles .info .botones .comprar {
@@ -366,4 +368,166 @@
 
 .conflechas {
     position: relative;
+}
+
+
+
+@media (max-width: 1024px) {
+    .producto-detalles {
+        flex-direction: column;
+        height: auto;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .producto-detalles .imgs {
+        width: 15%;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .producto-detalles .img-grande {
+        width: 70%;
+    }
+
+    .producto-detalles .info {
+        width: 90%;
+    }
+
+    .recomendados {
+        width: 95%;
+    }
+
+    .reviews {
+        width: 95%;
+    }
+
+    .scroll.left,
+    .scroll.right {
+        display: none; 
+    }
+}
+
+
+@media (max-width: 768px) {
+    .navigate {
+        font-size: 24px;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .flechas {
+        width: 100%;
+        top: 70px;
+    }
+
+    .producto-detalles .rat-precio .precio,
+    .producto-detalles .rat-precio .precio-con-descuento {
+        font-size: 18px;
+    }
+
+    .producto-detalles .info .dimensions .w-h-d,
+    .producto-detalles .info .rat-precio,
+    .producto-detalles .info .viaje-retorno {
+        gap: 10px;
+    }
+
+    .producto-detalles .info .botones {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .producto-detalles .info .botones .comprar,
+    .producto-detalles .info .botones .agregar {
+        width: 100%;
+        font-size: 18px;
+        padding: 12px 0;
+    }
+
+    .accesorios,
+    .recomendados-celu {
+        padding: 0 10px;
+    }
+    .producto-detalles .imgs {
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .navigate {
+        font-size: 20px;
+    }
+
+    .producto-detalles {
+        width: 100%;
+    }
+
+    .producto-detalles .img-grande {
+        width: 100%;
+    }
+
+    .producto-detalles .info {
+        width: 95%;
+        font-size: 14px;
+    }
+
+    .producto-detalles .info .rat-precio .precio,
+    .producto-detalles .info .rat-precio .precio-con-descuento {
+        font-size: 16px;
+    }
+
+    .producto-detalles .info .dimensions .titulo {
+        font-size: 16px;
+    }
+
+    .producto-detalles .info .dimensions .w-h-d {
+        font-size: 14px;
+    }
+
+    .recomendados,
+    .reviews {
+        width: 95%;
+    }
+    .reviews .comentario {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .recomendados-celu .accesorio-celu {
+        flex: 0 0 160px;
+        font-size: 14px;
+    }
+
+    .recomendados-celu .accesorio-celu .img {
+        height: 150px;
+    }
+
+    .accesorios .accesorio {
+        flex: 0 0 180px;
+        font-size: 14px;
+    }
+
+    .accesorios .accesorio .img {
+        height: 150px;
+    }
+
+    .reviews .titulo {
+        font-size: 20px;
+    }
+
+    .scroll {
+        display: none;
+    }
+    .producto-detalles .imgs {
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
 }

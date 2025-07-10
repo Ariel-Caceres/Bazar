@@ -1,27 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tektur:wght@400..900&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 #root {
     font-family: "Tektur", sans-serif;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-sizing: border-box;
-    
-    position: absolute;
-    left: 0;
+    justify-content: center; 
+
 }
 
-body {
+/* body {
     width: 100%;
-    /* background-color: #DAEDBD; */
+    display: flex;
     justify-content: center;
     align-items: center;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: auto;
+    flex-direction: column;
     box-sizing: border-box;
-
-}
+    position: relative;
+} */
 
 main {
     width: 100%;

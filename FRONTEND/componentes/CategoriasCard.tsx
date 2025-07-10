@@ -3,7 +3,6 @@ import "../src/estilos/categoriasCard.css"
 import accesorios from "../src/assets/imgsCategorias/accesorios.jpg"
 import laptop from "../src/assets/imgsCategorias/laptop.jpg"
 import tablet from "../src/assets/imgsCategorias/tablet.png"
-// import type {categorias} from "../componentes/Resultados"
 import smartphone from "../src/assets/imgsCategorias/smartphone.png"
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +10,6 @@ export interface categorias {
     name: string;
     url: string;
 }
-// { nombreDeCategoria }: { nombreDeCategoria: string }
 export const CategoriasCard = ({ categoria }: { categoria: categorias }) => {
     const navigate = useNavigate();
 
@@ -22,7 +20,7 @@ export const CategoriasCard = ({ categoria }: { categoria: categorias }) => {
         Tablets: tablet,
     }
     return (
-        <div className="categoria" onClick={() => navigate(`/items?categoria=${categoria.name.toLocaleLowerCase()}`)}>
+        <div className="categoria" onClick={() => navigate(`/?categoria=${categoria.name.toLocaleLowerCase()}`)}>
             <span>{categoria.name}</span>
             <div className="img-categoria">
                 <img src={categoriasTecnologia[categoria.name]} alt="" />

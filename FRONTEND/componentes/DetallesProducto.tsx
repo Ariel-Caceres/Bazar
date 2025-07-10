@@ -5,6 +5,7 @@ import "../src/estilos/derallesProdiucto.css"
 import { Header } from "./Header";
 import { useApp } from "../context/useApp";
 import { useRef } from "react";
+import { Footer } from "./Footer";
 
 export interface Producto {
     id: number;
@@ -46,7 +47,7 @@ export const DetallesProducto = () => {
     const [imagenGrande, setImagenGrande] = useState<string | null>(null)
     const { id } = useParams()
     const location = useLocation();
-    const volverA = location.state?.volverA || "/items";
+    const volverA = location.state?.volverA || "/";
     const [imagenHover, setImagenHover] = useState<string | null>(null);
     const [fade, setFade] = useState(false);
     const [recomendados, setRecomendados] = useState<Producto[]>([])
@@ -54,7 +55,7 @@ export const DetallesProducto = () => {
     const { usuario } = useApp()
     const idNumero = id ? parseInt(id) : null
     const carouselRef = useRef<HTMLDivElement>(null);
-
+    const { fetchData } = useApp()
 
     const fetchAccesorios = async () => {
         try {
@@ -68,9 +69,9 @@ export const DetallesProducto = () => {
         }
     }
 
-    const añadirAlCarrito = () => {
+    const añadirAlCarrito = async () => {
         if (usuario) {
-            fetch(`http://localhost:3000/carrito/add`, {
+           await fetch(`http://localhost:3000/carrito/add`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -81,6 +82,7 @@ export const DetallesProducto = () => {
                 })
             })
 
+            fetchData(usuario)
         }
         else {
             navigate("/login", { state: { carritomsj: true } })
@@ -132,8 +134,8 @@ export const DetallesProducto = () => {
         const timeout = setTimeout(() => setFade(false), 300);
         return () => clearTimeout(timeout);
     }, [imagenHover, imagenGrande]);
-    if (!producto) return <div>Cargando...</div>;
 
+    if (!producto) return <div>Cargando...</div>;
 
     return (
         <>
@@ -210,7 +212,7 @@ export const DetallesProducto = () => {
                         <button className="comprar">
                             <span>Comprar ahora</span>
                         </button>
-                        <button className="agregar" onClick={() => (añadirAlCarrito())}>
+                        <button className="agregar" onClick={() => añadirAlCarrito()}>
                             <span>Agregar al carrito</span>
                         </button>
                     </div>
@@ -277,7 +279,7 @@ export const DetallesProducto = () => {
                     </div>
                 ))}
             </div>
-
+                <Footer/>
         </>
     )
 }

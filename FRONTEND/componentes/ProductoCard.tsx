@@ -1,43 +1,47 @@
 import { useNavigate } from "react-router-dom";
-import type { Product } from "./Resultados";
-import {  useState } from "react";
+import type { Product } from "../context/ProductosContext";
+import { useState } from "react";
 import { useApp } from "../context/useApp";
 export const ProductoCard = ({ producto }: { producto: Product }) => {
   const [hover, setHover] = useState(false);
   const navigate = useNavigate();
-  const {usuario} = useApp()
-  const {id} = useApp()
-      const añadirAlCarrito = () => {
-        if(usuario){
-          fetch(`http://localhost:3000/carrito/add`, {
-            method: "POST",
-            headers:{
-              "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-              id:`${id}`,
-              usuario: `${usuario}`,
-              producto:producto,
-            })
-          })
-        }
-        else{
-          navigate("/login", {state:{carritomsj: true}})
-        }
+  const { usuario } = useApp()
+  const { fetchData } = useApp()
+
+  const añadirAlCarrito = async () => {
+    if (usuario) {
+     const res = await fetch(`http://localhost:3000/carrito/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          usuario: `${usuario}`,
+          producto: producto,
+        })
+      })
+      if(res.ok){
+        fetchData(usuario)
+      }
     }
+    else {
+      navigate("/login", { state: { carritomsj: true } })
+    }
+  }
+
   return (
-    
+
     <div className="producto" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <div className="descuento">
         <span>¡Descuento!🔥 | </span>
         <span>{producto.discountPercentage}% OFF</span>
       </div>
 
-      <div className="imagen"onClick={() => navigate(`/producto/${producto.id}`,{ state: { volverA: location.pathname + location.search } })}>
+      <div className="imagen" onClick={() => navigate(`/producto/${producto.id}`, { state: { volverA: location.pathname + location.search } })}>
         {hover &&
-         producto.images[1]? 
-         <img src={producto.images[1]} alt="" /> : 
-         <img src={producto.thumbnail} alt="" />
+          producto.images[1] ?
+          <img src={producto.images[1]} alt="" /> :
+          <img src={producto.thumbnail} alt="" />
         }
       </div>
 
@@ -50,8 +54,8 @@ export const ProductoCard = ({ producto }: { producto: Product }) => {
       <span className="precio">${producto.price}</span>
 
       <div className="botones">
-        <button className="comprar" onClick={()=>(añadirAlCarrito())}>Agregar al carrito</button>
-        <button className="info"onClick={()=> navigate(`/producto/${producto.id}`,{ state: { volverA: location.pathname + location.search } })}> Más información</button>
+        <button className="comprar" onClick={() => (añadirAlCarrito())}>Agregar al carrito</button>
+        <button className="info" onClick={() => navigate(`/producto/${producto.id}`, { state: { volverA: location.pathname + location.search } })}> Más información</button>
       </div>
     </div>
   );

@@ -101,7 +101,6 @@ header span {
 .layout .formulario form button:hover {
     background-color: #166ef3;
 }
-
 .layout .container {
     width: 50%;
 }
@@ -109,8 +108,71 @@ header span {
 .layout .container p {
     font-size: 20px;
     width: 90%;
-
+    
 }
 .alert{
     color: red;
+}
+
+.layout .container .registrarse button{
+    width: 50%;
+}
+
+
+
+@media (max-width: 1024px) {
+    header{
+        width: 80%;
+    }
+    header img{
+        width: 10%;
+    }
+    .layout{
+        width: 80%;
+        flex-wrap: wrap;
+    }
+    button{
+        width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+      header img{
+        width: 20%;
+    }
+    .layout{
+        margin-top: 20px;
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: column  ;
+        justify-content: center;
+    }
+    .layout .container{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .layout .formulario{
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+        header img{
+        width: 20%;
+    }
+    .layout{
+        margin-top: 20px;
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: column  ;
+        justify-content: center;
+    }
+    .layout .container{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .layout .formulario{
+        width: 100%;
+    }
+
 }

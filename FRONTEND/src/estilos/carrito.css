@@ -1,13 +1,15 @@
+
 article {
     width: 60%;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    box-sizing: border-box;
 }
 
 article .productos {
     /* background-color: lightblue; */
-    width: 100%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -16,7 +18,7 @@ article .productos {
 article .productos .producto {
     display: flex;
     border: 1px solid rgba(0, 0, 0, 0.411);
-    width: 60%;
+    width: 70%;
     border-radius: 10px;
     gap: 20px;
 }
@@ -49,6 +51,7 @@ article .productos .producto .detalles {
     flex-direction: column;
     justify-content: space-evenly;
     width: 60%;
+    flex-wrap: wrap;
 }
 
 article .productos .producto .detalles .precio {
@@ -83,6 +86,7 @@ article .resumen {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 article .resumen h3 {
@@ -173,4 +177,102 @@ article .resumen button::before:hover {
 
 h2 {
     margin-bottom: 50px;
+}
+
+
+@media (max-width: 1224px),
+(min-widht: 1024px) {
+    article {
+        width: 80%;
+        /* background-color: aqua; */
+        justify-content: space-evenly;
+    }
+
+    article .productos {
+        width: 60%;
+    }
+
+    article .resumen {
+        width: 40%;
+    }
+
+    article .productos .producto {
+        width: 80%;
+    }
+}
+
+@media (max-width: 1024px),
+(min-widht: 768px) {
+    article {
+        width: 90%;
+        justify-content: space-evenly;
+    }
+
+    article .productos {
+        width: 60%;
+
+    }
+
+    article .productos .producto {
+        width: 70%;
+    }
+
+    article .resumen {
+        width: 30%;
+    }
+}
+
+@media (max-width: 768px),
+(min-widht:620px) {
+    article {
+        width: 90%;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+
+    article .productos {
+        width: 60%;
+    }
+
+    article .productos .producto {
+        width: 90%;
+    }
+
+    article .resumen {
+        width: 40%;
+    }
+}
+
+@media (max-width: 620px){
+    article {
+        width: 90%;
+        flex-wrap: wrap-reverse;
+        display: flex;
+        gap: 20px;
+        justify-content: space-evenly;
+    }
+
+    article .productos {
+        width: 100%;
+    }
+
+    article .resumen {
+        width: 100%;
+    }
+    article .productos .producto {
+        width: 100%;
+        align-items: center;
+    }
+     article .productos .producto .detalles{
+        justify-content: space-evenly;
+        height: 100%;
+    }
+    article .productos .producto .img {
+        width: 70%;
+        justify-content: center;
+    }
+    article .productos .producto .img img {
+        width: 100%;
+
+    }
 }
