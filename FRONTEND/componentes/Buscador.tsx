@@ -9,7 +9,7 @@ export const Buscador = () => {
     const [buscador, setBuscador] = useState<string>("")
     const navigate = useNavigate();
     const location = useLocation()
-    const volverA = location.state?.volverA
+    const volverA = location.state?.volverA || "/"
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setBuscador(e.target.value)
 

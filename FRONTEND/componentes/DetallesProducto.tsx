@@ -55,6 +55,7 @@ export const DetallesProducto = () => {
     const { usuario } = useApp()
     const idNumero = id ? parseInt(id) : null
     const carouselRef = useRef<HTMLDivElement>(null);
+    const carouselRef2 = useRef<HTMLDivElement>(null);
     const { fetchData } = useApp()
 
     const fetchAccesorios = async () => {
@@ -71,7 +72,7 @@ export const DetallesProducto = () => {
 
     const añadirAlCarrito = async () => {
         if (usuario) {
-           await fetch(`http://localhost:3000/carrito/add`, {
+            await fetch(`http://localhost:3000/carrito/add`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -110,6 +111,17 @@ export const DetallesProducto = () => {
         }
     };
 
+    const scrollLeftAcc = () => {
+        if (carouselRef2.current) {
+            carouselRef2.current.scrollBy({ left: -500, behavior: "smooth" });
+        }
+    };
+
+    const scrollRightAcc = () => {
+        if (carouselRef2.current) {
+            carouselRef2.current.scrollBy({ left: 300, behavior: "smooth" });
+        }
+    };
 
     useEffect(() => {
         const fetchProducto = async () => {
@@ -222,42 +234,55 @@ export const DetallesProducto = () => {
                 {producto.category?.toLowerCase() === "smartphones" &&
                     <h2>¡Accesorios para tu smartphone!</h2>
                 }
-                <div className="recomendados-celu">
-                    {producto.category?.toLowerCase() === "smartphones" &&
-                        recomendados
-                            .filter(p => p.category.toLowerCase() === "mobile-accessories")
-                            .map(p => (
-                                <div className="accesorio-celu" key={p.id} onClick={() => (navigate(`/producto/${p.id}`))}>
-                                    <span className="nombre">{p.title}</span>
-                                    <div className="img">
-                                        <img src={p.thumbnail} alt="" />
-                                    </div>
-                                    <span className="precio">$ {p.price}</span>
-                                </div>
-                            ))
-                    }
-                </div >
-                <h2>Te puede interesar</h2>
                 <div className="conflechas">
-                    <button className="scroll left" onClick={() => (scrollLeft())}><i className="fa-solid fa-arrow-left der"></i></button>
+                    <button className="scroll left" onClick={scrollLeftAcc}>
+                        <i className="fa-solid fa-arrow-left der"></i>
+                    </button>
+
+                    <div className="recomendados-celu" ref={carouselRef2}>
+                        {producto.category?.toLowerCase() === "smartphones" &&
+                            recomendados
+                                .filter(p => p.category.toLowerCase() === "mobile-accessories")
+                                .map(p => (
+                                    <div className="accesorio-celu" key={p.id} onClick={() => navigate(`/producto/${p.id}`)}>
+                                        <span className="nombre">{p.title}</span>
+                                        <div className="img">
+                                            <img src={p.thumbnail} alt="" />
+                                        </div>
+                                        <span className="precio">$ {p.price}</span>
+                                    </div>
+                                ))
+                        }
+                    </div>
+
+                    <button className="scroll right" onClick={scrollRightAcc}>
+                        <i className="fa-solid fa-arrow-right izq"></i>
+                    </button>
+                </div>
+
+                <div className="conflechas">
+                    <h2>Te puede interersar</h2>
+                    <button className="scroll left" onClick={scrollLeft}>
+                        <i className="fa-solid fa-arrow-left der"></i>
+                    </button>
 
                     <div className="accesorios" ref={carouselRef}>
-                        {recomendados.map(r => r.category == categoria &&
-                            <div className="accesorio" key={r.id} onClick={() => (navigate(`/producto/${r.id}`))}>
-                                <span className="nombre">
-                                    {r.title}
-                                </span>
+                        {recomendados.map(r => r.category === categoria && (
+                            <div className="accesorio" key={r.id} onClick={() => navigate(`/producto/${r.id}`)}>
+                                <span className="nombre">{r.title}</span>
                                 <div className="img">
                                     <img src={r.thumbnail} alt="" />
                                 </div>
-                                <span className="precio">
-                                    $ {r.price}
-                                </span>
+                                <span className="precio">$ {r.price}</span>
                             </div>
-                        )}
-                        <button className="scroll right" onClick={() => (scrollRight())}><i className="fa-solid fa-arrow-right izq"></i></button>
+                        ))}
                     </div>
+
+                    <button className="scroll right" onClick={scrollRight}>
+                        <i className="fa-solid fa-arrow-right izq"></i>
+                    </button>
                 </div>
+
             </div>
 
             <div className="reviews">
@@ -279,7 +304,7 @@ export const DetallesProducto = () => {
                     </div>
                 ))}
             </div>
-                <Footer/>
+            <Footer />
         </>
     )
 }

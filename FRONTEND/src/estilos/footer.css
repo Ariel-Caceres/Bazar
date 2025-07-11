@@ -21,3 +21,10 @@
 .footer-links {
   margin-top: 5px;
 }
+
+@media (max-width: 480px) {
+  .footer{
+    height: 5%;
+    margin-top: 0;
+  }
+}

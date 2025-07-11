@@ -1,8 +1,10 @@
-header {
+/* header {
     width: 80%;
     height: 10%;
     gap: 20px;
-}
+    display: flex;
+    align-items: center;
+} */
 
 .flecha {
     width: 60%;
@@ -33,15 +35,15 @@ header {
 .flecha span:hover i{
     font-size: 27px;
 }
-header img {
+/* header img {
     width: 5%;
     border-radius: 20px;
-}
+} */
 
-header span {
+/* header span {
     font-weight: 600;
     font-size: 20px;
-}
+} */
 
 .layout {
     width: 60%;
@@ -121,12 +123,12 @@ header span {
 
 
 @media (max-width: 1024px) {
-    header{
+    /* header{
         width: 80%;
-    }
-    header img{
+    } */
+    /* header img{
         width: 10%;
-    }
+    } */
     .layout{
         width: 80%;
         flex-wrap: wrap;
@@ -137,9 +139,9 @@ header span {
 }
 
 @media (max-width: 768px) {
-      header img{
+      /* header img{
         width: 20%;
-    }
+    } */
     .layout{
         margin-top: 20px;
         flex-wrap: wrap;
@@ -157,9 +159,9 @@ header span {
 }
 
 @media (max-width: 480px) {
-        header img{
+        /* header img{
         width: 20%;
-    }
+    } */
     .layout{
         margin-top: 20px;
         flex-wrap: wrap;

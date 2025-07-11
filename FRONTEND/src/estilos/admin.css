@@ -195,9 +195,7 @@
         align-items: center;
         gap: 20px;
     }
-    header{
-        width: 100%;
-    }
+   
     .botones{
         height: 10%;
     }

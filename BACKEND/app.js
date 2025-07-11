@@ -133,7 +133,7 @@ app.delete("/delete/:usuario/:id", (req, res) => {
   res.json({ message: "Producto eliminado con éxito" });
 });
 
-app.post("/usuario/add", (req, res) => {
+app.post("/usuario/register", (req, res) => {
   let usuarios = leerJson("users.json");
   let { usuario, contraseña } = req.body;
 
@@ -156,15 +156,15 @@ app.post("/usuario/add", (req, res) => {
 });
 
 
-app.get("/usuarios/:nombre/:contraseña", (req, res) => {
+app.post("/usuarios/login", (req, res) => {
   let usuarios = leerJson("users.json")
-  let contraseña = req.params.contraseña
-  let usuarioNombre = req.params.nombre
-  if (usuarioNombre == "admin" && contraseña == "1234") {
+  let contraseña = req.body.contraseña
+  let usuarioNombre = req.body.nombre
+  if (usuarioNombre.trim() == "admin" && contraseña == "1234") {
     return res.json({ message: "Bienvenido admin" })
   }
   if (usuarios.find(u => u.usuario == usuarioNombre && u.contraseña == contraseña)) {
-    res.json({ message: "Enicio de secion exitoso" })
+    res.json({ message: "Inicio de secion exitoso" })
   } else {
     res.status(404).json({ message: "Usuario o contraseña incorrectos " })
   }

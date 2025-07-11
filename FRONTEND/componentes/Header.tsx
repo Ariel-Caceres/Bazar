@@ -31,7 +31,7 @@ export const Header = () => {
                     {usuario ?
                         <li onClick={() => (logout(), alert("Seción cerrada"), navigate("/"))} className="user"><i className="fa-solid fa-right-from-bracket" ></i></li>
                         :
-                        <li onClick={() => (navigate("/login", { state: { urlAnterior: location.pathname + location.search } }))} className="user"><i className="fa-solid fa-user"></i></li>
+                        <li onClick={() => (navigate("/login", { state: { urlAnterior: location.pathname + location.search } }))} className={location.pathname === "/login" ? "itemElegido" : "user "}><i className="fa-solid fa-user"></i></li>
                     }
                 </ul>
             </div >

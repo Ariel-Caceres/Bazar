@@ -2,18 +2,20 @@ import "../src/estilos/login.css"
 import img from "../src/assets/img.jpg"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useApp } from "../context/useApp"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Footer } from "./Footer"
+import { Header } from "./Header"
 
 export const Login = () => {
     const navigate = useNavigate()
     const location = useLocation();
-    const { login, loading } = useApp()
-    const urlAnterior = location.state?.urlAnterior || "/"
+    const { login, loading, isAdmin } = useApp()
+    const volverA = location.state?.volverA || "/"
     const carritomsj = location.state?.carritomsj || null
     const [usuario, setUsuario] = useState<string>("")
-
     const [contraseña, setContraseña] = useState<string>("")
+    const [logueadoRecienAhora, setLogueadoRecienAhora] = useState(false);
+
     const [usuarioNoExiste, setUsuarioNoExiste] = useState<boolean>(false)
 
     const handleSumbmit = (e: React.FormEvent) => {
@@ -25,35 +27,52 @@ export const Login = () => {
     const handleContraseñaControlada = (e: React.ChangeEvent<HTMLInputElement>) => {
         setContraseña(e.target.value)
     }
+
     const userCheck = async (nombre: string, contraseña: string) => {
-        const res = await fetch(`http://localhost:3000/usuarios/${nombre}/${contraseña}`)
+        const res = await fetch(`http://localhost:3000/usuarios/login`, {
+            method: "POST",
+            headers: {
+                "Content-type": "Application/json"
+
+            },
+            body: JSON.stringify({nombre, contraseña})
+        }
+        )
+        const data = await res.json()
+
         if (res.status === 404) {
-            const data = await res.json()
             alert(data.message)
             setUsuarioNoExiste(true)
 
         } else if (res.ok) {
             login(usuario, contraseña)
-            alert("Inicio de secion exitoso ")
-            // if (usuario.toLowerCase() === "admin" && contraseña === "1234") {
-            if (!loading) {
-                navigate("/admin");
-            } else {
-                navigate(urlAnterior);
-            }
+            setLogueadoRecienAhora(true);
+            alert(data.message)
         }
     }
 
+    useEffect(() => {
+        if (!loading && usuario && logueadoRecienAhora) {
+            if (isAdmin) {
+                navigate("/admin");
+            } else if (carritomsj) {
+                navigate("/carrito");
+            } else {
+                navigate("/");
+            }
+            setLogueadoRecienAhora(false);
+        }
+    }, [usuario, isAdmin, loading, logueadoRecienAhora]);
 
 
     return (
         <>
-            <header>
-                <img src={img} alt="" />
-                <span>Mercado Cautivo</span>
-            </header>
-            <div className="flecha">
-                <span onClick={() => navigate(urlAnterior)}><i className="fa-regular fa-circle-left"></i>Volver</span>
+            <Header/>
+        
+            <div className="flechas">
+                <div className="navigate" onClick={() => (navigate(volverA))}>
+                    <span><i className="fa-solid fa-arrow-left izq"></i></span>
+                </div>
             </div>
             <div className="layout">
                 <div className="container">

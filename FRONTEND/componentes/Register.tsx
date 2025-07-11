@@ -5,6 +5,7 @@ import { useApp } from "../context/useApp"
 import { useEffect, useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 import { Footer } from "./Footer"
+import { Header } from "./Header"
 export const Register = () => {
 
     const navigate = useNavigate()
@@ -47,7 +48,7 @@ export const Register = () => {
 
     const userAdd = async () => {
         if (!idGenerado) return;
-        const res = await fetch(`http://localhost:3000/usuario/add/`, {
+        const res = await fetch(`http://localhost:3000/usuario/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -71,12 +72,11 @@ export const Register = () => {
 
     return (
         <>
-            <header>
-                <img src={img} alt="" />
-                <span>Mercado Cautivo</span>
-            </header>
-            <div className="flecha">
-                <span onClick={() => navigate(urlAnterior)}><i className="fa-regular fa-circle-left"></i>Volver</span>
+            <Header/>
+              <div className="flechas">
+                <div className="navigate" onClick={() => (navigate(urlAnterior))}>
+                    <span><i className="fa-solid fa-arrow-left izq"></i></span>
+                </div>
             </div>
             <div className="layout">
                 <div className="container">

@@ -208,7 +208,9 @@ section .layout .productos {
     flex-wrap: wrap;
     justify-content: space-evenly;
     z-index: 1;
+    overflow-y: hidden;
     background-color: white;
+    height: auto;
 }
 
 section .layout .productos .producto {
@@ -276,9 +278,10 @@ section .layout .productos .producto .botones {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    
+
 }
-section .layout .productos .producto .botones button{
+
+section .layout .productos .producto .botones button {
     width: 100%;
 
 }
@@ -344,12 +347,14 @@ section .layout .productos .producto .botones .info:hover {
 }
 
 
-@media (max-width: 1300px), (min-widht:1200px) {
-     section .layout .productos .producto .nombre{
+@media (max-width: 1300px),
+(min-widht:1200px) {
+    section .layout .productos .producto .nombre {
         height: 20%;
     }
-      section .layout .productos .producto{
-        width:  35%;
+
+    section .layout .productos .producto {
+        width: 35%;
     }
 }
 
@@ -366,9 +371,11 @@ section .layout .productos .producto .botones .info:hover {
 
     section .categorias .categoria {
         width: 40%;
+        padding: 0;
+        gap: 0;
         border: 1px solid rgba(128, 128, 128, 0.384);
     }
-
+  
     section .layout {
         flex-direction: column;
     }
@@ -393,7 +400,7 @@ section .layout .productos .producto .botones .info:hover {
         width: 45%;
     }
 
-   
+
 }
 
 @media (max-width: 768px) {
@@ -403,6 +410,7 @@ section .layout .productos .producto .botones .info:hover {
         gap: 10px;
     }
 
+    
     section .finder-top .cant-resultados-filtros {
         flex-direction: column;
         display: none;
@@ -428,10 +436,29 @@ section .layout .productos .producto .botones .info:hover {
 }
 
 @media (max-width: 480px) {
-    section .layout .productos .producto {
-        width: 100%;
+    section .layout .productos {
+        overflow-x: hidden;
     }
 
+    section .layout .productos .producto {
+        box-sizing: border-box;
+        padding: 5px;
+        gap: 5px;
+    }
+
+    section .layout .productos {
+        height: auto;
+        padding-bottom: 20px;
+    }
+
+    section .layout .productos .producto {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    section .layout .productos .producto .botones{
+        gap: 10px;
+    }
     section .finder-top .cant-resultados-filtros .titulo-icono {
         flex-direction: column;
         align-items: flex-start;
@@ -458,7 +485,8 @@ section .layout .productos .producto .botones .info:hover {
 
     section .layout .productos .producto .botones .comprar,
     section .layout .productos .producto .botones .info {
-        font-size: 16px;
+        font-size: 14px;
         padding: 8px;
     }
+
 }

@@ -38,8 +38,7 @@ export const Carrito = () => {
         const descuento = (p.price - (p.price * p.discountPercentage) / 100)
         const cantidad = p.cantidad
         return descuento * cantidad
-    })
-        .reduce((acumulador, valorActual) => acumulador + valorActual, 0);
+    }).reduce((acumulador, valorActual) => acumulador + valorActual, 0);
 
     const totalProductos = productosEnCarrito.map(p => {
         const total = Number(p.cantidad)
@@ -83,7 +82,7 @@ export const Carrito = () => {
                 fetchData(usuario)
             }
             alert("Gracias por su compra")
-        }else{
+        } else {
             alert("El carrito esta vacio")
         }
 
@@ -108,10 +107,10 @@ export const Carrito = () => {
     }
 
     useEffect(() => {
-        if (usuario) {
+        if (usuario && !loading) {
             fetchDataUserCart(usuario)
         }
-    }, [usuario])
+    }, [usuario, loading])
 
     useEffect(() => {
         if (loading == false && !usuario) {
