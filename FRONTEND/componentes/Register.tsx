@@ -1,26 +1,21 @@
 import "../src/estilos/login.css"
-import img from "../src/assets/img.jpg"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useApp } from "../context/useApp"
 import { useEffect, useState } from "react"
-import { v4 as uuidv4 } from "uuid"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
 export const Register = () => {
 
     const navigate = useNavigate()
     const location = useLocation();
-    const { login, setId } = useApp()
     const urlAnterior = location.state?.urlAnterior || "/"
     const [usuario, setUsuario] = useState<string>("")
     const [contraseña, setContraseña] = useState<string>("")
     const [confirmarContraseña, setConfirmarContraseña] = useState<string>("")
     const [noCoincideContraseña, setNoCoincideContraseña] = useState<boolean>()
-    const [idGenerado, setIdGenerado] = useState<string>("")
 
     const handleSumbmit = (e: React.FormEvent) => {
         e.preventDefault()
-        login(usuario)
     }
     const handleChangeUser = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsuario(e.target.value)
@@ -39,21 +34,12 @@ export const Register = () => {
         }
     }, [confirmarContraseña, contraseña])
 
-    useEffect(() => {
-        if (!idGenerado) {
-            const nuevoId = uuidv4()
-            setIdGenerado(nuevoId)
-        }
-    }, [idGenerado])
-
     const userAdd = async () => {
-        if (!idGenerado) return;
         const res = await fetch(`http://localhost:3000/usuario/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                id: idGenerado,
-                usuario: `${usuario}`,
+                usuario: `${usuario.trim().toLowerCase()}`,
                 contraseña: `${contraseña}`,
 
             })
@@ -62,18 +48,22 @@ export const Register = () => {
             const data = await res.json()
             alert(data.message)
         } else if (res.ok) {
-            alert("Registro exitoso")
-            setId(idGenerado)
-            console.log("ID guardado en contexto:", idGenerado);
-
+            const data = await res.json()
+            alert(data.message)
             navigate("/login")
+        }else if(res.status === 403){
+            const data = await res.json()
+            alert(data.message)
+            setContraseña("")
+            setUsuario("")
+            setConfirmarContraseña("")
         }
     }
 
     return (
         <>
-            <Header/>
-              <div className="flechas">
+            <Header />
+            <div className="flechas">
                 <div className="navigate" onClick={() => (navigate(urlAnterior))}>
                     <span><i className="fa-solid fa-arrow-left izq"></i></span>
                 </div>

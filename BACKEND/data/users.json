@@ -1,16 +1,10 @@
 [
   {
-    "id": "6fa86665-f495-4dd2-b20b-0783b3605b77",
     "usuario": "ariel",
     "contraseña": "123"
   },
   {
-    "id": "6e7ed178-cded-4190-91b0-50f58a477537",
     "usuario": "cristian",
-    "contraseña": "123"
-  },
-  {
-    "usuario": "caceres",
     "contraseña": "123"
   }
 ]

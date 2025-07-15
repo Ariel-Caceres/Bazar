@@ -5,7 +5,7 @@ import { useApp } from "../context/useApp"
 import { useEffect, useState } from "react"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
-
+import { useEspera } from "../context/useEspera"
 export const Login = () => {
     const navigate = useNavigate()
     const location = useLocation();
@@ -15,9 +15,9 @@ export const Login = () => {
     const [usuario, setUsuario] = useState<string>("")
     const [contraseña, setContraseña] = useState<string>("")
     const [logueadoRecienAhora, setLogueadoRecienAhora] = useState(false);
-
+    const {productoEspera, setProductoEnEspera}=  useEspera()
     const [usuarioNoExiste, setUsuarioNoExiste] = useState<boolean>(false)
-
+    
     const handleSumbmit = (e: React.FormEvent) => {
         e.preventDefault()
     }
@@ -48,6 +48,23 @@ export const Login = () => {
             login(usuario, contraseña)
             setLogueadoRecienAhora(true);
             alert(data.message)
+              if (productoEspera) {
+                try {
+                    await fetch(`http://localhost:3000/carrito/add`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            usuario: `${nombre}`,
+                            producto: productoEspera,
+                        })
+                    })
+                    setProductoEnEspera(null)
+                } catch (error) {
+                    console.log("no se pudo agregar el producto en espera", error)
+                }
+            }
         }
     }
 
@@ -100,6 +117,7 @@ export const Login = () => {
                     </form>
                 </div>
             </div >
+            
             <Footer />
 
         </>

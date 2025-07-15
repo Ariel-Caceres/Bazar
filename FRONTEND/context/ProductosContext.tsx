@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
+import type { ReactNode } from "react";
 
 export interface Product {
   id: number;
@@ -57,19 +58,18 @@ const fetchProductos = async (categoria?: string, buscador?: string) => {
         console.log("No se encontraron productos");
         setProductos([]);
       } else {
-        setProductos(data);
+        if (JSON.stringify(data) !== JSON.stringify(productos)) {
+          setProductos(data);
+        }
       }
     }
   } catch (error) {
     console.error("Error al traer los productos", error);
     setProductos([]);
   } finally {
-    setLoading(false); 
+    setLoading(false);
   }
 };
-
-
-
 
 
   return (

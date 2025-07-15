@@ -232,9 +232,9 @@ export const DetallesProducto = () => {
             </div>
             <div className="recomendados">
                 {producto.category?.toLowerCase() === "smartphones" &&
-                    <h2>¡Accesorios para tu smartphone!</h2>
-                }
+                
                 <div className="conflechas">
+                    <h2>¡Accesorios para tu smartphone!</h2>
                     <button className="scroll left" onClick={scrollLeftAcc}>
                         <i className="fa-solid fa-arrow-left der"></i>
                     </button>
@@ -259,7 +259,7 @@ export const DetallesProducto = () => {
                         <i className="fa-solid fa-arrow-right izq"></i>
                     </button>
                 </div>
-
+}
                 <div className="conflechas">
                     <h2>Te puede interersar</h2>
                     <button className="scroll left" onClick={scrollLeft}>

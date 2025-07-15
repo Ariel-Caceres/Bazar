@@ -30,48 +30,82 @@
     flex-wrap: wrap;
     /* justify-content: space-evenly; */
 }
-
 .layoutAdmin .productoNuevo {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid gray;
-    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 15px;
     width: 30%;
+    height: 370px;
     gap: 10px;
-    height: 350px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.layoutAdmin .productoNuevo:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.layoutAdmin .productoNuevo img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.layoutAdmin .productoNuevo .nombreProducto {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    color: #333;
+}
+
+.layoutAdmin .productoNuevo .descripcionProducto {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.layoutAdmin .productoNuevo .precioProducto {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2ec4b6;
+    align-self: flex-start;
 }
 
 .layoutAdmin .productoNuevo .botones {
     width: 100%;
     display: flex;
+    gap: 10px;
     justify-content: space-evenly;
 }
 
 .layoutAdmin .productoNuevo .botones button {
-    width: 50%;
+    width: 45%;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3483fa;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.layoutAdmin .productoNuevo .nombreProducto {
-    height: 15%;
-    font-size: 20px;
+.layoutAdmin .productoNuevo .botones button:hover {
+    background-color: #2563eb;
 }
 
-.layoutAdmin .productoNuevo .descripcionProducto {
-    height: 30%;
-
-}
-
-.layoutAdmin .productoNuevo .precioProducto {
-    height: 5%;
-    display: flex;
-    align-self: self-start;
-}
-
-.layoutAdmin .productoNuevo img {
-    width: 50%;
-}
 
 .layoutAdmin .formularios {
     display: flex;

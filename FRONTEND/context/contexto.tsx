@@ -1,5 +1,6 @@
 import { createContext, useState, ReactNode, useEffect } from "react";
 import type { Product } from "./ProductosContext";
+import type { Producto } from "../componentes/DetallesProducto";
 
 interface Usuario {
   usuario: string;
@@ -17,8 +18,8 @@ interface AppContextType {
   numero: number | 0
   setNumero: (numero: number) => void
   fetchData: (usuario: string) => void
-}
 
+}
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
 
@@ -27,6 +28,32 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [idActual, setIdActual] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true)
   const [cantProductos, setCantProductos] = useState<number | 0>(0)
+  // const [productoEspera, setProductoEspera] = useState<Product | null>(null)
+
+   const fetchData = async (usuario: string) => {
+    try {
+      const resUsuario = await fetch(`http://localhost:3000/usuarios/${usuario}`);
+
+      if (resUsuario.status === 404) {
+        const data = await resUsuario.json();
+        alert(data.message);
+        localStorage.removeItem("usuario");
+        setUser(null)
+      }
+
+      const resCarrito = await fetch(`http://localhost:3000/cart/${usuario}`);
+
+      if (!resCarrito.ok) {
+        throw new Error("Error al traer el carrito");
+      }
+
+      const data: Product[] = await resCarrito.json();
+      setNumero(data.length);
+
+    } catch (error) {
+      console.log("Error al traer datos del carrito o del usuario:", error);
+    }
+  };
 
   const login = (usuario: string, contraseña: string) => {
     const isAdmin = usuario.toLowerCase() === "admin" && contraseña === "1234";
@@ -44,24 +71,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setNumero(0)
   };
 
-  const fetchData = async (usuario: string) => {
-    try {
-      const res = await fetch(`http://localhost:3000/cart/${usuario}`)
-      const data: Product[] = await res.json()
-      setNumero(data.length)
-      if (!res.ok) throw new Error("Error al eliminar producto");
-
-    } catch (error) {
-      console.log("Error al traer la cantidad de productos", error)
-    }
-  }
+  // const setProductoEnEspera = (producto:Product)=> setProductoEspera(producto)
 
   useEffect(() => {
     if (user?.usuario) {
       fetchData(user.usuario)
     }
   }, [user])
-
 
   useEffect(() => {
     const guardado = localStorage.getItem("usuario");
@@ -87,6 +103,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         numero: cantProductos,
         setNumero,
         fetchData,
+      
       }}
     >
       {children}

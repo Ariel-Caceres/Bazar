@@ -1,16 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import type { Product } from "../context/ProductosContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useApp } from "../context/useApp";
+import {useEspera} from "../context/useEspera"
 export const ProductoCard = ({ producto }: { producto: Product }) => {
   const [hover, setHover] = useState(false);
   const navigate = useNavigate();
-  const { usuario } = useApp()
-  const { fetchData } = useApp()
+  const { fetchData, usuario } = useApp()
+  const {productoEspera, setProductoEnEspera} = useEspera()
 
   const añadirAlCarrito = async () => {
     if (usuario) {
-     const res = await fetch(`http://localhost:3000/carrito/add`, {
+      const res = await fetch(`http://localhost:3000/carrito/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -20,14 +21,21 @@ export const ProductoCard = ({ producto }: { producto: Product }) => {
           producto: producto,
         })
       })
-      if(res.ok){
+      const data = await res.json()
+      if (JSON.stringify(data) !== JSON.stringify(producto)) {
         fetchData(usuario)
       }
+
     }
     else {
+      setProductoEnEspera(producto)
       navigate("/login", { state: { carritomsj: true } })
     }
   }
+
+  useEffect(() => {
+      console.log(productoEspera)
+  }, [])
 
   return (
 

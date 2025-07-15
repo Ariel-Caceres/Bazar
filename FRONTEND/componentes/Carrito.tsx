@@ -110,13 +110,13 @@ export const Carrito = () => {
         if (usuario && !loading) {
             fetchDataUserCart(usuario)
         }
+        if (!loading && !usuario) {
+            navigate("/");
+            return
+        }
     }, [usuario, loading])
 
-    useEffect(() => {
-        if (loading == false && !usuario) {
-            navigate("/")
-        }
-    }, [loading])
+    if (loading || !usuario) return null;
 
     return (
         <>

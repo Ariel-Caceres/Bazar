@@ -141,10 +141,7 @@ export const Admin = () => {
   }
 
   const enviarDatos = async () => {
-    if (nombreProductoAgg != "" && precioProductoAgg > 0 && descripcionProductoAgg.length >= 10) {
-      if (avatarProductoAgg == "") {
-        setAvatarProductoAgg("https://avatars.githubusercontent.com/u/123")
-      }
+    if (nombreProductoAgg != "" && Number(precioProductoAgg) > 0 && descripcionProductoAgg.length >= 10) {
       try {
         const res = await fetch(`https://6812b0f7129f6313e20f45cd.mockapi.io/products`, {
           method: "POST",
@@ -155,7 +152,7 @@ export const Admin = () => {
             name: nombreProductoAgg,
             precio: precioProductoAgg,
             description: descripcionProductoAgg,
-            avatar: avatarProductoAgg
+            avatar: avatarProductoAgg || "https://avatars.githubusercontent.com/u/123"
           })
 
         })
@@ -202,7 +199,7 @@ export const Admin = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  if(loading) return <p>Cargando...</p>  
+  if (loading) return <h1>Cargando... </h1>
 
   if (!isAdmin) {
     return <Navigate to="/" replace />;
@@ -214,15 +211,16 @@ export const Admin = () => {
       <div className="admin">
 
         <div className="subtitulo">
-
           <div className="editarEliminar">
             <h3>Agregar editar y eliminar productos🛒</h3>
           </div>
-
+        
         </div>
-        <div className="layoutAdmin">
 
+        <div className="layoutAdmin">
+          
           <div className="productosNuevos">
+            
             {productos && productos.map(p =>
               <div className="productoNuevo" key={p.id}>
                 <span className="nombreProducto">{p.name}</span>
