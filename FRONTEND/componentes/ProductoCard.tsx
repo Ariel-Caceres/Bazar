@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import type { Product } from "../context/ProductosContext";
 import { useApp } from "../context/useApp";
 import {useEspera} from "../context/useEspera"
+import { useState } from "react";
+
 export const ProductoCard = ({ producto }: { producto: Product }) => {
   const [hover, setHover] = useState(false);
   const navigate = useNavigate();

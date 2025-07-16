@@ -6,14 +6,14 @@ import tablet from "../src/assets/imgsCategorias/tablet.png"
 import smartphone from "../src/assets/imgsCategorias/smartphone.png"
 import { useNavigate } from 'react-router-dom';
 
-export interface categorias {
+export interface categorias  {
     name: string;
     url: string;
 }
 export const CategoriasCard = ({ categoria }: { categoria: categorias }) => {
     const navigate = useNavigate();
 
-    const categoriasTecnologia = {
+    const categoriasTecnologia: Record<string, string> = {
         Laptops: laptop,
         "Mobile Accessories": accesorios,
         Smartphones: smartphone,
