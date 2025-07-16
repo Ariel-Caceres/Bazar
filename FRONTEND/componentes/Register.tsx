@@ -1,6 +1,5 @@
 import "../src/estilos/login.css"
 import { useNavigate, useLocation } from "react-router-dom"
-import { useApp } from "../context/useApp"
 import { useEffect, useState } from "react"
 import { Footer } from "./Footer"
 import { Header } from "./Header"

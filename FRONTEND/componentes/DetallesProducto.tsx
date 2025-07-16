@@ -8,6 +8,7 @@ import { useRef } from "react";
 import { Footer } from "./Footer";
 import { useEspera } from "../context/useEspera";
 import type { Product } from "../context/ProductosContext";
+
 export interface Producto {
     id: number;
     title: string;

@@ -54,7 +54,7 @@ export const Resultados = () => {
     : productos.filter(p => marcasSeleccionadas.includes(p.brand));
 
   const handleChange = (marca: string, checked: boolean) => {
-    setMarcasSeleccionadas(prev =>
+    setMarcasSeleccionadas(prev=>
       checked ? [...prev, marca] : prev.filter(m => m != marca)
     );
   };

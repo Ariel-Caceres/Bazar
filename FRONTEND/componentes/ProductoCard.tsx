@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import type { Product } from "../context/ProductosContext";
-import { useEffect, useState } from "react";
 import { useApp } from "../context/useApp";
 import {useEspera} from "../context/useEspera"
 export const ProductoCard = ({ producto }: { producto: Product }) => {

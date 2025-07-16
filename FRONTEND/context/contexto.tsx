@@ -1,6 +1,6 @@
-import { createContext, useState, ReactNode, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import type { Product } from "./ProductosContext";
-import type { Producto } from "../componentes/DetallesProducto";
+import type { ReactNode } from "react";
 
 interface Usuario {
   usuario: string;
@@ -28,7 +28,6 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [idActual, setIdActual] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true)
   const [cantProductos, setCantProductos] = useState<number | 0>(0)
-  // const [productoEspera, setProductoEspera] = useState<Product | null>(null)
 
    const fetchData = async (usuario: string) => {
     try {
@@ -71,7 +70,6 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setNumero(0)
   };
 
-  // const setProductoEnEspera = (producto:Product)=> setProductoEspera(producto)
 
   useEffect(() => {
     if (user?.usuario) {

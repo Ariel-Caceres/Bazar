@@ -2,19 +2,38 @@ import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 
 export interface Product {
-  id: number;
-  title: string;
-  cantidad: number,
-  description: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  tags: string;
-  brand: string;
-  category: string;
-  thumbnail: string;
-  images: string[];
+    id: number;
+    title: string;
+    description: string;
+    price: number;
+    discountPercentage: number;
+    rating: number;
+    stock: number;
+    brand: string;
+    category: string;
+    thumbnail: string;
+    images: string[];
+    availabilityStatus: string;
+    dimensions: {
+        width: number;
+        height: number;
+        depth: number;
+    };
+    weight: number;
+    minimumOrderQuantity: number;
+    shippingInformation: string;
+    warrantyInformation: string;
+    returnPolicy: string;
+    sku: string;
+    tags: string[];
+    meta: {
+        createdAt: string;
+        updatedAt: string;
+        barcode: string;
+        qrCode: string;
+    };
+    reviews: any[];
+    cantidad: number
 }
 
 interface ProductosContextType {
@@ -23,7 +42,7 @@ interface ProductosContextType {
   orden: string;
   setOrden: (orden: string) => void;
   marcasSeleccionadas: string[];
-  setMarcasSeleccionadas: (marcas: string[]) => void;
+  setMarcasSeleccionadas: React.Dispatch<React.SetStateAction<string[]>>;
   fetchProductos: (categoria?: string, buscador?: string) => void;
 }
 

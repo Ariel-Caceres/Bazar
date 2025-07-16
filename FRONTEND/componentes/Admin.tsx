@@ -101,7 +101,7 @@ export const Admin = () => {
     setSeModificaronDatos(true)
   }
   const handleChangePrecio = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPrecioProducto(e.target.value)
+    setPrecioProducto(Number(e.target.value))
     setSeModificaronDatos(true)
 
   }
@@ -226,7 +226,7 @@ export const Admin = () => {
                 <span className="nombreProducto">{p.name}</span>
                 <p className="descripcionProducto">{p.description}</p>
                 <span className="precioProducto">Precio ${p.price}</span>
-                <img src={p.avatar ? p.avatar : null} alt="" />
+                <img src={p.avatar ? p.avatar : undefined} alt="" />
                 <div className="botones">
                   <button onClick={() => productoEditar(p.id)}>Editar</button>
                   <button onClick={() => eliminarProducto(p.id)}>Eliminar</button>
