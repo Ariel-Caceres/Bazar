@@ -59,11 +59,11 @@ const fetchProductos = async (categoria?: string, buscador?: string) => {
   try {
     let url = "";
     if (buscador && buscador.trim() !== "") {
-      url = `http://localhost:3000/api/${buscador}`;
+      url = `https://bazar-gbw5.onrender.com/api/${buscador}`;
     } else if (categoria) {
-      url = `http://localhost:3000/productos/${categoria}`;
+      url = `https://bazar-gbw5.onrender.com/productos/${categoria}`;
     } else {
-      url = "http://localhost:3000/api/productos";
+      url = "https://bazar-gbw5.onrender.com/api/productos";
     }
 
     const res = await fetch(url);

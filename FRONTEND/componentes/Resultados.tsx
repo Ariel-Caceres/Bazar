@@ -33,7 +33,7 @@ export const Resultados = () => {
   
   const getdata = async () => {
     try {
-      const res = await fetch("http://localhost:3000/categorias");
+      const res = await fetch("https://bazar-gbw5.onrender.com/categorias");
       const data = await res.json();
       setCategorias(data);
     } catch (error) {

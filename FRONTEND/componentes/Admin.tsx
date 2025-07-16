@@ -35,7 +35,7 @@ export const Admin = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch("http://localhost:3000/admin/products")
+      const res = await fetch("https://bazar-gbw5.onrender.com/admin/products")
       const data = await res.json()
       setProductos(data)
     } catch (error) {

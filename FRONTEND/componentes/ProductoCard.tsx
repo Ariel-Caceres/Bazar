@@ -12,7 +12,7 @@ export const ProductoCard = ({ producto }: { producto: Product }) => {
 
   const añadirAlCarrito = async () => {
     if (usuario) {
-      const res = await fetch(`http://localhost:3000/carrito/add`, {
+      const res = await fetch(`https://bazar-gbw5.onrender.com/carrito/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

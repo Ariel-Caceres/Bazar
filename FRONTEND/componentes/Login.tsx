@@ -28,7 +28,7 @@ export const Login = () => {
     }
 
     const userCheck = async (nombre: string, contraseña: string) => {
-        const res = await fetch(`http://localhost:3000/usuarios/login`, {
+        const res = await fetch(`https://bazar-gbw5.onrender.com/usuarios/login`, {
             method: "POST",
             headers: {
                 "Content-type": "Application/json"
@@ -49,7 +49,7 @@ export const Login = () => {
             alert(data.message)
               if (productoEspera) {
                 try {
-                    await fetch(`http://localhost:3000/carrito/add`, {
+                    await fetch(`https://bazar-gbw5.onrender.com/carrito/add`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"

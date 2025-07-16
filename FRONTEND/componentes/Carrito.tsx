@@ -21,7 +21,7 @@ export const Carrito = () => {
 
     const fetchDataUserCart = async (usuario: string) => {
         try {
-            const res = await fetch(`http://localhost:3000/cart/${usuario}`)
+            const res = await fetch(`https://bazar-gbw5.onrender.com/cart/${usuario}`)
             const data = await res.json()
             setProductosEnCarrito(data)
         } catch (error) {
@@ -47,7 +47,7 @@ export const Carrito = () => {
 
     const borrarProducto = async (id: number) => {
         try {
-            const res = await fetch(`http://localhost:3000/delete/${usuario}/${id}`, {
+            const res = await fetch(`https://bazar-gbw5.onrender.com/delete/${usuario}/${id}`, {
                 method: "DELETE"
             });
 
@@ -68,7 +68,7 @@ export const Carrito = () => {
         if (productosEnCarrito.length !== 0) {
 
             try {
-                const res = await fetch(`http://localhost:3000/buy/${usuario}`, {
+                const res = await fetch(`https://bazar-gbw5.onrender.com/buy/${usuario}`, {
                     method: "PUT",
                 })
                 if (!res.ok) throw new Error("Error al vaciar carrito")
@@ -90,7 +90,7 @@ export const Carrito = () => {
 
     const handleChange = async (id: number, cantidad: string) => {
         try {
-            const res = await fetch(`http://localhost:3000/cart/cantidad/${usuario}/${id}`, {
+            const res = await fetch(`https://bazar-gbw5.onrender.com/cart/cantidad/${usuario}/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

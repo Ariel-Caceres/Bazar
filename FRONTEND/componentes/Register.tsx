@@ -34,7 +34,7 @@ export const Register = () => {
     }, [confirmarContraseña, contraseña])
 
     const userAdd = async () => {
-        const res = await fetch(`http://localhost:3000/usuario/register`, {
+        const res = await fetch(`https://bazar-gbw5.onrender.com/usuario/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

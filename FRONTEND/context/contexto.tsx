@@ -31,7 +31,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
    const fetchData = async (usuario: string) => {
     try {
-      const resUsuario = await fetch(`http://localhost:3000/usuarios/${usuario}`);
+      const resUsuario = await fetch(`https://bazar-gbw5.onrender.com/usuarios/${usuario}`);
 
       if (resUsuario.status === 404) {
         const data = await resUsuario.json();
@@ -40,7 +40,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setUser(null)
       }
 
-      const resCarrito = await fetch(`http://localhost:3000/cart/${usuario}`);
+      const resCarrito = await fetch(`https://bazar-gbw5.onrender.com/cart/${usuario}`);
 
       if (!resCarrito.ok) {
         throw new Error("Error al traer el carrito");

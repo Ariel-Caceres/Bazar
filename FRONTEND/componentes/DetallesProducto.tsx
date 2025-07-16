@@ -64,7 +64,7 @@ export const DetallesProducto = () => {
 
     const fetchAccesorios = async () => {
         try {
-            const res = await fetch(`http://localhost:3000/api/productos`)
+            const res = await fetch(`https://bazar-gbw5.onrender.com/api/productos`)
             const data: Producto[] = await res.json()
             const noRecomandar = data.filter(p => p.id !== idNumero)
             setRecomendados(noRecomandar)
@@ -76,7 +76,7 @@ export const DetallesProducto = () => {
 
     const añadirAlCarrito = async () => {
         if (usuario) {
-            await fetch(`http://localhost:3000/carrito/add`, {
+            await fetch(`https://bazar-gbw5.onrender.com/carrito/add`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -131,7 +131,7 @@ export const DetallesProducto = () => {
 
     useEffect(() => {
         const fetchProducto = async () => {
-            const res = await fetch(`http://localhost:3000/producto/${id}`);
+            const res = await fetch(`https://bazar-gbw5.onrender.com/producto/${id}`);
             const data = await res.json();
             setProducto(data);
             setCategoria(data.category)
