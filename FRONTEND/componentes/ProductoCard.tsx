@@ -7,7 +7,7 @@ export const ProductoCard = ({ producto }: { producto: Product }) => {
   const [hover, setHover] = useState(false);
   const navigate = useNavigate();
   const { fetchData, usuario } = useApp()
-  const {productoEspera, setProductoEnEspera} = useEspera()
+  const { setProductoEnEspera} = useEspera()
 
   const añadirAlCarrito = async () => {
     if (usuario) {
@@ -33,10 +33,7 @@ export const ProductoCard = ({ producto }: { producto: Product }) => {
     }
   }
 
-  useEffect(() => {
-      console.log(productoEspera)
-  }, [])
-
+ 
   return (
 
     <div className="producto" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>

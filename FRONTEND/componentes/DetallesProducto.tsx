@@ -6,7 +6,8 @@ import { Header } from "./Header";
 import { useApp } from "../context/useApp";
 import { useRef } from "react";
 import { Footer } from "./Footer";
-
+import { useEspera } from "../context/useEspera";
+import type { Product } from "../context/ProductosContext";
 export interface Producto {
     id: number;
     title: string;
@@ -39,11 +40,12 @@ export interface Producto {
         qrCode: string;
     };
     reviews: any[];
+    cantidad: number
 }
 
 export const DetallesProducto = () => {
     const navigate = useNavigate()
-    const [producto, setProducto] = useState<Producto | null>(null)
+    const [producto, setProducto] = useState<Product | null>(null)
     const [imagenGrande, setImagenGrande] = useState<string | null>(null)
     const { id } = useParams()
     const location = useLocation();
@@ -57,6 +59,7 @@ export const DetallesProducto = () => {
     const carouselRef = useRef<HTMLDivElement>(null);
     const carouselRef2 = useRef<HTMLDivElement>(null);
     const { fetchData } = useApp()
+    const { setProductoEnEspera } = useEspera()
 
     const fetchAccesorios = async () => {
         try {
@@ -86,8 +89,10 @@ export const DetallesProducto = () => {
             fetchData(usuario)
         }
         else {
-            navigate("/login", { state: { carritomsj: true } })
+            setProductoEnEspera(producto)
+            navigate("/login", { state: { carritomsj: true } });
         }
+
 
     }
 
@@ -232,34 +237,34 @@ export const DetallesProducto = () => {
             </div>
             <div className="recomendados">
                 {producto.category?.toLowerCase() === "smartphones" &&
-                
-                <div className="conflechas">
-                    <h2>¡Accesorios para tu smartphone!</h2>
-                    <button className="scroll left" onClick={scrollLeftAcc}>
-                        <i className="fa-solid fa-arrow-left der"></i>
-                    </button>
 
-                    <div className="recomendados-celu" ref={carouselRef2}>
-                        {producto.category?.toLowerCase() === "smartphones" &&
-                            recomendados
-                                .filter(p => p.category.toLowerCase() === "mobile-accessories")
-                                .map(p => (
-                                    <div className="accesorio-celu" key={p.id} onClick={() => navigate(`/producto/${p.id}`)}>
-                                        <span className="nombre">{p.title}</span>
-                                        <div className="img">
-                                            <img src={p.thumbnail} alt="" />
+                    <div className="conflechas">
+                        <h2>¡Accesorios para tu smartphone!</h2>
+                        <button className="scroll left" onClick={scrollLeftAcc}>
+                            <i className="fa-solid fa-arrow-left der"></i>
+                        </button>
+
+                        <div className="recomendados-celu" ref={carouselRef2}>
+                            {producto.category?.toLowerCase() === "smartphones" &&
+                                recomendados
+                                    .filter(p => p.category.toLowerCase() === "mobile-accessories")
+                                    .map(p => (
+                                        <div className="accesorio-celu" key={p.id} onClick={() => navigate(`/producto/${p.id}`)}>
+                                            <span className="nombre">{p.title}</span>
+                                            <div className="img">
+                                                <img src={p.thumbnail} alt="" />
+                                            </div>
+                                            <span className="precio">$ {p.price}</span>
                                         </div>
-                                        <span className="precio">$ {p.price}</span>
-                                    </div>
-                                ))
-                        }
-                    </div>
+                                    ))
+                            }
+                        </div>
 
-                    <button className="scroll right" onClick={scrollRightAcc}>
-                        <i className="fa-solid fa-arrow-right izq"></i>
-                    </button>
-                </div>
-}
+                        <button className="scroll right" onClick={scrollRightAcc}>
+                            <i className="fa-solid fa-arrow-right izq"></i>
+                        </button>
+                    </div>
+                }
                 <div className="conflechas">
                     <h2>Te puede interersar</h2>
                     <button className="scroll left" onClick={scrollLeft}>
