@@ -285,7 +285,7 @@
     display: flex;
     overflow-x: auto;
     gap: 16px;
-    padding: 10px ;
+    padding: 10px;
     scroll-behavior: smooth;
     justify-content: space-around;
     overflow: hidden;
@@ -385,13 +385,12 @@
     cursor: pointer;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     padding: 5px 10px;
-    /* bottom: -10px; */
 }
 
 .scroll.left {
     left: -50px;
     border: 1px solid #DE6B48;
-    
+
 }
 
 .scroll.right {
@@ -436,9 +435,15 @@
         width: 95%;
     }
 
-    .scroll.left,
+    .scroll.left {
+        width: 5%;
+        left: 0px;
+    }
+
     .scroll.right {
-        display: none;
+
+        width: 5%;
+        right: 0px;
     }
 }
 
@@ -481,7 +486,7 @@
 
     .accesorios,
     .recomendados-celu {
-        padding: 0 10px;
+        padding: 10px 10px;
     }
 
     .producto-detalles .imgs {
@@ -489,6 +494,19 @@
         display: flex;
         justify-content: center;
         gap: 10px;
+    }
+
+    .scroll.left {
+        width: 5%;
+        left: 0px;
+        width: 10%;
+
+    }
+
+    .scroll.right {
+        width: 5%;
+        right: 0px;
+        width: 10%;
     }
 }
 
@@ -556,9 +574,14 @@
         font-size: 20px;
     }
 
-    .scroll {
-        display: none;
+    .scroll.right {
+        width: 15%;
     }
+
+    .scroll.left {
+        width: 15%;
+    }
+
 
     .producto-detalles .imgs {
         width: 25%;

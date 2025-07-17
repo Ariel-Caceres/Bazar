@@ -6,7 +6,7 @@ const { error } = require("console");
 const app = express();
 app.use(cors());
 app.use(express.json());
-//  process.env.PORT ||
+// process.env.PORT || 
 const PORT = 3000;
 
 const leerJson = (nombreJson) => {
