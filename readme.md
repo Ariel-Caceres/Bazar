@@ -1,12 +1,12 @@
-# PREENTREGA REACT
+# ENTREGA FINAL REACT
 
 Esta es un e-commerce que utiliza dummyjson como base de datos
-Me falta lo de la verificacion de login y todo ese tema de manejar carrito por usuario, mucho detalle en frontend y demas
 
 ## Funcionalidades
   - Filtrar y ver productos por categoría y marca.
   - Agregar y eliminar productos del carrito.
   - Ver detalles de los productos.
+  - Agregar nuevos productos al panel de admin
 
 ## Tecnologías usadas ⚙🚀
 ### Frontend 🎨✨
@@ -17,6 +17,7 @@ Me falta lo de la verificacion de login y todo ese tema de manejar carrito por u
 - FontAwesome
 - useContext
 ### Backend 📁📊
+-Mockapi
 - Express
 - Cors
 - Json file as Data Base
