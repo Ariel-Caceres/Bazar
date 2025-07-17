@@ -231,7 +231,7 @@ app.post("/carrito/add", (req, res) => {
 });
 
 app.get("/usuarios/:usuario", (req, res) => {
-  // let isAdmin = req.params.usuario.trim().toLowerCase() == "admin"
+if (usuario.toLowerCase() === "admin") return;
   let usuarios = leerJson("users.json")
   let usuario = req.params.usuario
   let usuarioEncontrado = usuarios.find(p => p.usuario.trim().toLowerCase() == usuario.trim().toLowerCase())
