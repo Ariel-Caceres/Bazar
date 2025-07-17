@@ -74,7 +74,7 @@ const fetchData = async (usuario: string) => {
 
   useEffect(() => {
     if (user?.usuario) {
-      fetchData(user.usuario, user.isAdmin)
+      fetchData(user.usuario)
     }
   }, [user])
 

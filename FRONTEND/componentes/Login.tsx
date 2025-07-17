@@ -80,7 +80,6 @@ export const Login = () => {
         }
     }, [usuario, isAdmin, loading, logueadoRecienAhora]);
 
-
     return (
         <>
             <Header/>
