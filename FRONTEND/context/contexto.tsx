@@ -28,8 +28,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true)
   const [cantProductos, setCantProductos] = useState<number | 0>(0)
 
-const fetchData = async (usuario: string, isAdmin: boolean) => {
-  if (isAdmin) return; // los admins no están en el json de usuarios
+const fetchData = async (usuario: string) => {
+  if (!user || user.isAdmin) return; 
 
   try {
     const resUsuario = await fetch(`https://bazar-gbw5.onrender.com/usuarios/${usuario}`);
