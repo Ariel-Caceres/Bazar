@@ -148,7 +148,7 @@ export const Carrito = () => {
                                         </div>
                                         <div className="cantidad">
                                             <span>Cantidad</span>
-                                            <select name="select" id="select" value={p.cantidad} onChange={(e) => { handleChange(p.id, e.target.value) }}>
+                                            <select name={p.title} id={String(p.id)} value={p.cantidad} onChange={(e) => { handleChange(p.id, e.target.value) }}>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
