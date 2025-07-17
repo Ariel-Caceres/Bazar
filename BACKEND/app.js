@@ -6,8 +6,8 @@ const { error } = require("console");
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-const PORT = process.env.PORT || 3000;
+//  process.env.PORT ||
+const PORT = 3000;
 
 const leerJson = (nombreJson) => {
   let api = fs.readFileSync(path.join(__dirname, `./data/${nombreJson}`), "utf-8")
@@ -231,6 +231,7 @@ app.post("/carrito/add", (req, res) => {
 });
 
 app.get("/usuarios/:usuario", (req, res) => {
+  // let isAdmin = req.params.usuario.trim().toLowerCase() == "admin"
   let usuarios = leerJson("users.json")
   let usuario = req.params.usuario
   let usuarioEncontrado = usuarios.find(p => p.usuario.trim().toLowerCase() == usuario.trim().toLowerCase())

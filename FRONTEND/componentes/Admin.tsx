@@ -201,7 +201,7 @@ export const Admin = () => {
 
   if (loading) return <h1>Cargando... </h1>
 
-  if (!isAdmin) {
+  if (!isAdmin && !loading) {
     return <Navigate to="/" replace />;
   }
   return (

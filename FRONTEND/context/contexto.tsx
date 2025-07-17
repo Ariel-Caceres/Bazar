@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import type { Product } from "./ProductosContext";
 import type { ReactNode } from "react";
-
 interface Usuario {
   usuario: string;
   isAdmin: boolean;
@@ -29,36 +28,38 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true)
   const [cantProductos, setCantProductos] = useState<number | 0>(0)
 
-   const fetchData = async (usuario: string) => {
-    try {
-      const resUsuario = await fetch(`https://bazar-gbw5.onrender.com/usuarios/${usuario}`);
+const fetchData = async (usuario: string, isAdmin: boolean) => {
+  if (isAdmin) return; // los admins no están en el json de usuarios
 
-      if (resUsuario.status === 404) {
-        const data = await resUsuario.json();
-        alert(data.message);
-        localStorage.removeItem("usuario");
-        setUser(null)
-      }
+  try {
+    const resUsuario = await fetch(`https://bazar-gbw5.onrender.com/usuarios/${usuario}`);
 
-      const resCarrito = await fetch(`https://bazar-gbw5.onrender.com/cart/${usuario}`);
-
-      if (!resCarrito.ok) {
-        throw new Error("Error al traer el carrito");
-      }
-
-      const data: Product[] = await resCarrito.json();
-      setNumero(data.length);
-
-    } catch (error) {
-      console.log("Error al traer datos del carrito o del usuario:", error);
+    if (resUsuario.status === 404) {
+      const data = await resUsuario.json();
+      alert(data.message);
+      localStorage.removeItem("usuario");
+      setUser(null);
+      return;
     }
-  };
+
+    const resCarrito = await fetch(`https://bazar-gbw5.onrender.com/cart/${usuario}`);
+    if (!resCarrito.ok) {
+      throw new Error("Error al traer el carrito");
+    }
+
+    const data: Product[] = await resCarrito.json();
+    setNumero(data.length);
+
+  } catch (error) {
+    console.log("Error al traer datos del carrito o del usuario:", error);
+  }
+};
 
   const login = (usuario: string, contraseña: string) => {
     const isAdmin = usuario.toLowerCase() === "admin" && contraseña === "1234";
-    const nuevoUsuario = { usuario, isAdmin };
-    setUser(nuevoUsuario);
-    localStorage.setItem("usuario", JSON.stringify(nuevoUsuario));
+      const nuevoUsuario = { usuario, isAdmin };
+      setUser(nuevoUsuario);
+      localStorage.setItem("usuario", JSON.stringify(nuevoUsuario));
   };
 
   const setNumero = (numero: number) => setCantProductos(numero)
@@ -73,7 +74,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (user?.usuario) {
-      fetchData(user.usuario)
+      fetchData(user.usuario, user.isAdmin)
     }
   }, [user])
 

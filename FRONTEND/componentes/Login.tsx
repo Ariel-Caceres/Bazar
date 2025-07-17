@@ -71,7 +71,7 @@ export const Login = () => {
         if (!loading && usuario && logueadoRecienAhora) {
             if (isAdmin) {
                 navigate("/admin");
-            } else if (carritomsj) {
+            } else if (carritomsj && !isAdmin) {
                 navigate("/carrito");
             } else {
                 navigate("/");
