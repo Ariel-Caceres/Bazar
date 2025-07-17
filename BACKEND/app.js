@@ -6,8 +6,8 @@ const { error } = require("console");
 const app = express();
 app.use(cors());
 app.use(express.json());
-// process.env.PORT || 
-const PORT = 3000;
+
+const PORT = process.env.PORT || 3000;
 
 const leerJson = (nombreJson) => {
   let api = fs.readFileSync(path.join(__dirname, `./data/${nombreJson}`), "utf-8")
