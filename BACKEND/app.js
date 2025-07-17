@@ -23,59 +23,93 @@ const categoriasTecnologia = [
   "smartphones",
   "tablets",
 ]
-let productosTecnologia = []
 
-const fetchProductosTecnologia = async () => {
-  const response = await fetch("https://dummyjson.com/products?limit=0");
-  const data = await response.json();
-  productosTecnologia = data.products.filter(p =>
-    categoriasTecnologia.includes(p.category.toLowerCase())
-  );
-};
-fetchProductosTecnologia()
 
-app.get('/api/productos', (req, res) => {
-  if (!productosTecnologia) {
-    return res.status(500).json({ error: 'Error interno' });
+app.get("/api/productos", async (req, res) => {
+  try {
+    const response = await fetch("https://dummyjson.com/products?limit=0");
+    const data = await response.json();
+    const productosTecnologia = data.products.filter((p) =>
+      categoriasTecnologia.includes(p.category.toLowerCase())
+    );
+    res.status(200).json(productosTecnologia);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener productos" });
   }
-  res.status(200).json(productosTecnologia);
 });
 
 app.get("/api/:search", async (req, res) => {
-  const search = req.params.search.toLowerCase();
-  const encontrados = productosTecnologia.filter(p =>
-    p.title.toLowerCase().includes(search)
-    || p.brand.toLowerCase().includes(search)
-    || p.category.toLowerCase().includes(search)
-    || p.tags[0].toLowerCase().includes(search)
-  )
-  if (!encontrados || encontrados.length == 0) {
-    return res.status(404).json({ error: "No se encontraron productos" })
-  }
-  res.json(encontrados);
-})
+  try {
+    const response = await fetch("https://dummyjson.com/products?limit=0");
+    const data = await response.json();
+    const productosTecnologia = data.products.filter((p) =>
+      categoriasTecnologia.includes(p.category.toLowerCase())
+    );
 
-app.get("/producto/:id", (req, res) => {
-  const idBuscado = Number(req.params.id);
-  const producto = productosTecnologia.find(p => p.id === idBuscado);
-  if (!producto || producto.length == 0) {
-    return res.status(404).json({ error: `Producto con id ${id} no encontrado` })
+    const search = req.params.search.toLowerCase();
+    const encontrados = productosTecnologia.filter(
+      (p) =>
+        p.title.toLowerCase().includes(search) ||
+        p.brand.toLowerCase().includes(search) ||
+        p.category.toLowerCase().includes(search) ||
+        p.tags?.[0]?.toLowerCase().includes(search)
+    );
+
+    if (!encontrados.length) {
+      return res.status(404).json({ error: "No se encontraron productos" });
+    }
+
+    res.json(encontrados);
+  } catch (error) {
+    res.status(500).json({ error: "Error al buscar productos" });
   }
-  res.json(producto);
 });
 
+
+app.get("/producto/:id", async (req, res) => {
+  try {
+    const idBuscado = Number(req.params.id);
+    const response = await fetch("https://dummyjson.com/products?limit=0");
+    const data = await response.json();
+    const productosTecnologia = data.products.filter((p) =>
+      categoriasTecnologia.includes(p.category.toLowerCase())
+    );
+
+    const producto = productosTecnologia.find((p) => p.id === idBuscado);
+    if (!producto) {
+      return res
+        .status(404)
+        .json({ error: `Producto con id ${idBuscado} no encontrado` });
+    }
+    res.json(producto);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener producto" });
+  }
+});
+
+
 app.get("/productos/:categoria", async (req, res) => {
-  let categoriaRecibida = req.params.categoria
-  if (categoriaRecibida == "mobile accessories") {
-    categoriaRecibida = "mobile-accessories"
+  try {
+    let categoriaRecibida = req.params.categoria;
+    if (categoriaRecibida === "mobile accessories") {
+      categoriaRecibida = "mobile-accessories";
+    }
+    const response = await fetch(
+      `https://dummyjson.com/products/category/${categoriaRecibida}`
+    );
+    const data = await response.json();
+
+    if (!data.products?.length) {
+      return res
+        .status(404)
+        .json({ error: `La categoria ${categoriaRecibida} no existe` });
+    }
+    res.json(data.products);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener productos por categoria" });
   }
-  let response = await fetch(`https://dummyjson.com/products/category/${categoriaRecibida}`)
-  let data = await response.json()
-  if (!data || data.length == 0) {
-    return res.status(404).json({ error: `La categoria ${categoriaRecibida} no existe` })
-  }
-  res.json(data.products)
-})
+});
+
 
 app.get("/cart/:usuario", (req, res) => {
   let usuarioCarrito = req.params.usuario
@@ -208,12 +242,19 @@ app.get("/usuarios/:usuario", (req, res) => {
   }
 })  
 
-app.get("/categorias", (req, res) => {
-  if (!categoriasFiltradas || categoriasFiltradas.length == 0) {
-    return res.status(404).json({ error: `Categoria no encontrada` });
+app.get("/categorias", async (req, res) => {
+  try {
+    const response = await fetch("https://dummyjson.com/products/categories");
+    const data = await response.json();
+    const categoriasFiltradas = data.filter((c) =>
+      ["Laptops", "Mobile Accessories", "Smartphones", "Tablets"].includes(c.name || c)
+    );
+    res.json(categoriasFiltradas);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener categorias" });
   }
-  res.json(categoriasFiltradas);
 });
+
 
 app.put("/buy/:usuario", (req, res) => {
   let carrito = leerJson("products.json")
