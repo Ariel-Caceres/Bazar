@@ -140,7 +140,6 @@ app.post("/add", (req, res) => {
 
 })
 
-let categoriasFiltradas = []
 
 const fetchCategoriasTecnologia = async () => {
   const categoriasTecnologia = [
