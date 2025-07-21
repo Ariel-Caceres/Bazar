@@ -143,7 +143,7 @@ export const Carrito = () => {
                                     <div className="detalles">
                                         <span>{p.title}</span>
                                         <div className="precio">
-                                            <span className="original">${p.price * p.cantidad}</span>
+                                            <span className="original">${(p.price * p.cantidad).toFixed(2)}</span>
                                             <span className="descuento">${Math.round((p.price) - (p.price * p.discountPercentage / 100)) * p.cantidad}</span>
                                         </div>
                                         <div className="cantidad">
